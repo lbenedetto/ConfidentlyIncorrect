@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("player/v1")
+@RequestMapping("api/player/v1")
 class PlayerController(
 ) {
 

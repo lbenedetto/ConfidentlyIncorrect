@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
 @Controller
-@RequestMapping("lobby/v1")
+@RequestMapping("api/lobby/v1")
 class LobbyController(
     val createLobby: CreateLobby,
     val joinLobby: JoinLobby,
