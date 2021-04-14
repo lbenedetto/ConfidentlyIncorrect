@@ -23,7 +23,17 @@ interface EstimateRepository : CrudRepository<Estimate, EstimateId> {
     fun findAllByLobbyIdAndQuestionId(
         @Param("lobbyId") lobbyId: LobbyId,
         @Param("questionId") questionId: QuestionId
-    ) : List<Estimate>
+    ): List<Estimate>
+
+    @Query(
+        "SELECT COUNT(*) FROM Estimate e" +
+                " WHERE e.questionId = :questionId" +
+                " AND e.lobbyId = :lobbyId", nativeQuery = true
+    )
+    fun isQuestionUniqueToLobby(
+        @Param("lobbyId") lobbyId: LobbyId,
+        @Param("questionId") questionId: QuestionId
+    ): Int
 
     @Query(
         "SELECT e FROM Estimate e" +
@@ -35,7 +45,7 @@ interface EstimateRepository : CrudRepository<Estimate, EstimateId> {
         @Param("lobbyId") lobbyId: LobbyId,
         @Param("questionId") questionId: QuestionId,
         @Param("playerId") playerId: PlayerId
-    ) : Optional<Estimate>
+    ): Optional<Estimate>
 
 }
 
@@ -48,7 +58,12 @@ class EstimateGateway(
         estimateRepository.save(estimate)
     }
 
-    fun findByLobbyAndQuestion(lobbyId: LobbyId, questionId: QuestionId) : List<Estimate> {
+    //Still trying to wrap my head around how Springboot and Kotlin work. Probably wrong. But we'll see
+    fun isQuestionUniqueToLobby(lobbyId: LobbyId, questionId: QuestionId): Boolean{
+        return estimateRepository.isQuestionUniqueToLobby(lobbyId,questionId) > 1
+    }
+
+    fun findByLobbyAndQuestion(lobbyId: LobbyId, questionId: QuestionId): List<Estimate> {
         return estimateRepository.findAllByLobbyIdAndQuestionId(lobbyId, questionId)
     }
 
@@ -56,7 +71,7 @@ class EstimateGateway(
         lobbyId: LobbyId,
         questionId: QuestionId,
         playerId: PlayerId
-    ) : Optional<Estimate> {
+    ): Optional<Estimate> {
         return estimateRepository.findByLobbyIdAndQuestionIdAndPlayerId(lobbyId, questionId, playerId)
     }
 
