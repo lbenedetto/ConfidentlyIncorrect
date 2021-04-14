@@ -22,7 +22,7 @@ class ScoreNotificationService(
         estimates: List<Estimate>? = null,
         players: List<Player>? = null,
     ): NextQuestionNotification {
-        val nextQuestion = questionGateway.getRandomQuestion()
+        val nextQuestion = questionGateway.getRandomQuestion(lobbyId)
 
         val playerMap = players?.associateBy { player -> player.id }
 
