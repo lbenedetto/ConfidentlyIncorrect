@@ -1,13 +1,13 @@
 function hostGame() {
-    console.log("host game clicked")
-    $.post("/api/lobby/v1/",
+    post("/api/lobby/v1/",
         {
             "hostName": $("#InputUsernameField").text(),
             "isParticipating": true
         },
         result => {
             console.log(result)
-        })
+        }
+    )
 }
 
 function joinGame() {
@@ -31,5 +31,16 @@ function connect() {
         stompClient.subscribe('/topic/messages', function (messageOutput) {
             showMessageOutput(JSON.parse(messageOutput.body));
         });
+    });
+}
+
+function post(url, data, onSuccess) {
+    $.ajax({
+        type: "POST",
+        url: url,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: onSuccess,
+        dataType: "json"
     });
 }
