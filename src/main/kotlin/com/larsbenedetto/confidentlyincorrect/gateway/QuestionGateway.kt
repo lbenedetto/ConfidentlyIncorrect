@@ -44,7 +44,6 @@ class QuestionGateway(
             text = tbl.text,
             answer = tbl.answer,
             category = tbl.category,
-            expirationDate = tbl.expirationDate
         )
     }
 }

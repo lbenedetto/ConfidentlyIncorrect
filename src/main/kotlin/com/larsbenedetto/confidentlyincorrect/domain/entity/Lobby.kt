@@ -3,6 +3,7 @@ package com.larsbenedetto.confidentlyincorrect.domain.entity
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
 import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
+import java.time.LocalDateTime
 
 data class Lobby(
     var id: LobbyId,
@@ -10,5 +11,6 @@ data class Lobby(
     var questionId: QuestionId? = null,
     var capacity: Int?,
     var questionCount: Int = 0,
-    var questionLimit: Int
+    var questionLimit: Int,
+    var questionExpirationDate: LocalDateTime
 )
