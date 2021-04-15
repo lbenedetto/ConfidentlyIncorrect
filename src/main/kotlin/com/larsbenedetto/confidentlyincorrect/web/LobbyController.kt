@@ -16,7 +16,7 @@ class LobbyController(
     val getLobbyDetails: GetLobbyDetails,
     val getQuestionsResults: GetQuestionsResults,
     val joinLobby: JoinLobby,
-    val startGame: StartGame,
+    val nextQuestion: NextQuestion,
     val submitEstimate: SubmitEstimate
 ) {
     @PostMapping("/")
@@ -50,12 +50,12 @@ class LobbyController(
         return ApiResponse.ok(getQuestionsResults.execute(lobbyId, questionId))
     }
 
-    @PostMapping("/{lobbyId}/start")
-    fun startGame(
+    @PostMapping("/{lobbyId}/nextQuestion")
+    fun nextQuestion(
         @PathVariable("lobbyId") lobbyId: LobbyId,
-        @RequestBody request: StartGameRequest
+        @RequestBody request: NextQuestionRequest
     ): ResponseEntity<ApiResponse<EmptyResponse>> {
-        startGame.execute(lobbyId, request)
+        nextQuestion.execute(lobbyId, request)
         return ApiResponse.ok()
     }
 

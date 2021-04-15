@@ -9,7 +9,6 @@ import com.larsbenedetto.confidentlyincorrect.gateway.LobbyGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.PlayerGateway
 import com.larsbenedetto.confidentlyincorrect.web.model.CreateLobbyRequest
 import com.larsbenedetto.confidentlyincorrect.web.model.CreateLobbyResponse
-import com.larsbenedetto.confidentlyincorrect.web.model.LobbyDetails
 import org.springframework.stereotype.Service
 
 @Service
@@ -37,6 +36,6 @@ class CreateLobby(
         lobby = lobbyGateway.save(lobby)
 
         val accessToken = accessTokenGateway.createForPlayerId(player.id!!)
-        return CreateLobbyResponse(LobbyDetails(lobby, listOf(player)), accessToken)
+        return CreateLobbyResponse(lobby.id, accessToken)
     }
 }
