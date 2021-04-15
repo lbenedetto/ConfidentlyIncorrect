@@ -9,6 +9,7 @@ import com.larsbenedetto.confidentlyincorrect.gateway.QuestionGateway
 import org.springframework.messaging.handler.annotation.DestinationVariable
 import org.springframework.messaging.handler.annotation.SendTo
 import org.springframework.stereotype.Service
+import java.time.Clock
 
 @Service
 class ScoreNotificationService(
@@ -25,6 +26,7 @@ class ScoreNotificationService(
         return NextQuestionNotification(
             nextQuestionId = nextQuestion.id,
             nextQuestionText = nextQuestion.text,
+
         )
     }
 }

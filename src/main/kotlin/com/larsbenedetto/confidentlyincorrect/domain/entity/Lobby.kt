@@ -12,5 +12,5 @@ data class Lobby(
     var capacity: Int?,
     var questionCount: Int = 0,
     var questionLimit: Int,
-    var questionExpirationDate: LocalDateTime
+    var questionExpiresAt: LocalDateTime? = null
 )

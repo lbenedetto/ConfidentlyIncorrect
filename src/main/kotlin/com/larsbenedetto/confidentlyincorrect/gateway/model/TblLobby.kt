@@ -25,5 +25,5 @@ data class TblLobby(
 
     var questionLimit: Int,
 
-    var questionExpirationDate: LocalDateTime
+    var questionExpiresAt: LocalDateTime?
 )

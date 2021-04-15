@@ -36,7 +36,7 @@ class LobbyGateway(
             capacity = entity.capacity,
             questionCount = entity.questionCount,
             questionLimit = entity.questionLimit,
-            questionExpirationDate = entity.questionExpirationDate
+            questionExpiresAt = entity.questionExpiresAt
         )
     }
 
@@ -48,8 +48,7 @@ class LobbyGateway(
             capacity = tbl.capacity,
             questionCount = tbl.questionCount,
             questionLimit = tbl.questionLimit,
-            questionExpirationDate = tbl.questionExpirationDate
-
+            questionExpiresAt = tbl.questionExpiresAt
         )
     }
 }
