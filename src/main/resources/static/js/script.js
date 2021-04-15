@@ -11,9 +11,9 @@ function hostLobby() {
             let createdLobby = new CreateLobbyResponse(result.data)
             let accessToken = createdLobby.accessToken
             let lobbyId = createdLobby.lobbyId
-            // TODO:
-            //  1. Store accessToken, lobbyId in session
-            //  2. Navigate to the pre game lobby page
+            sessionStorage.setItem("accessToken", accessToken)
+            sessionStorage.setItem("lobbyId", lobbyId)
+            window.location.href = "/lobby"
         }
     )
 }
@@ -26,16 +26,16 @@ function joinLobby() {
         result => {
             let joinedLobby = new JoinLobbyResponse(result)
             let accessToken = joinedLobby.accessToken
-            // TODO:
-            //  1. Store accessToken, lobbyId in session
-            //  2. Navigate to the pre game lobby page
+            sessionStorage.setItem("accessToken", accessToken)
+            sessionStorage.setItem("lobbyId", lobbyId)
+            window.location.href = "/lobby"
         }
     )
 }
 
 function nextQuestion() {
-    let lobbyId = "asdf" // TODO: Get this from the session
-    let accessToken = "asdf" // TODO: Get this from the session
+    let lobbyId = sessionStorage.getItem("lobbyId")
+    let accessToken = sessionStorage.getItem("accessToken")
     post("/api/lobby/v1/" + lobbyId + "/nextQuestion",
         {"accessToken": accessToken},
         result => {
@@ -46,13 +46,11 @@ function nextQuestion() {
 }
 
 function getLobbyDetails() {
-    let lobbyId = "asdf" // TODO: Get this from the session
+    let lobbyId = sessionStorage.getItem("lobbyId")
     post("/api/lobby/v1/" + lobbyId + "/",
         {},
         result => {
             let lobbyDetails = new LobbyDetails(result.data)
-            // TODO: Navigate the user to the view question page
-            // Players who aren't hosting will hopefully receive a stomp notification
         }
     )
 }
@@ -70,8 +68,8 @@ function getQuestionResults() {
 }
 
 function submitEstimate() {
-    let lobbyId = "asdf" // TODO: Get this from the session
-    let accessToken = "accessToken" // TODO: Get this from the session
+    let lobbyId = sessionStorage.getItem("lobbyId")
+    let accessToken = sessionStorage.getItem("accessToken")
     let lowerBound = "asdf" // TODO: Get this from the UI
     let upperBound = "asdf" // TODO: Get this from the UI
     post("/api/lobby/v1/" + lobbyId + "/submitEstimate",

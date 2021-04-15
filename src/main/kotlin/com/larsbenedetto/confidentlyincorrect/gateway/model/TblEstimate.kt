@@ -3,12 +3,14 @@ package com.larsbenedetto.confidentlyincorrect.gateway.model
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
 import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
+import org.hibernate.annotations.DynamicUpdate
 import javax.persistence.*
 
 @Entity
+@DynamicUpdate
 data class TblEstimate(
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     var id: Long?,
 
     @Embedded

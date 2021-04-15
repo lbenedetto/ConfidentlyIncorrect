@@ -2,12 +2,14 @@ package com.larsbenedetto.confidentlyincorrect.gateway.model
 
 import com.larsbenedetto.confidentlyincorrect.domain.AccessToken
 import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
+import org.hibernate.annotations.DynamicUpdate
 import javax.persistence.*
 
 @Entity
+@DynamicUpdate
 data class TblAccessToken(
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     var id: Long? = null,
 
     @Embedded

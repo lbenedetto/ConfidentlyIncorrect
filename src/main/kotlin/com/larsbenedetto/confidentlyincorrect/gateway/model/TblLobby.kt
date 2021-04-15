@@ -2,10 +2,12 @@ package com.larsbenedetto.confidentlyincorrect.gateway.model
 
 import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
 import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
+import org.hibernate.annotations.DynamicUpdate
 import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
+@DynamicUpdate
 data class TblLobby(
 
     @Id

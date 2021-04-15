@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS tbl_lobby
+CREATE TABLE IF NOT EXISTS TblLobby
 (
     id                VARCHAR(6) NOT NULL,
     capacity          INT(11)    NULL DEFAULT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS tbl_lobby
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS tbl_player
+CREATE TABLE IF NOT EXISTS TblPlayer
 (
     id              BIGINT(20)   NOT NULL AUTO_INCREMENT,
     name            VARCHAR(100) NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS tbl_player
     INDEX idx_isParticipating (isParticipating)
 );
 
-CREATE TABLE IF NOT EXISTS tbl_question
+CREATE TABLE IF NOT EXISTS TblQuestion
 (
     id          BIGINT(20) NOT NULL AUTO_INCREMENT,
     scoringType INT(11)    NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS tbl_question
     INDEX idx_category (category)
 );
 
-CREATE TABLE IF NOT EXISTS tbl_estimate
+CREATE TABLE IF NOT EXISTS TblEstimate
 (
     id         BIGINT(20) NOT NULL AUTO_INCREMENT,
     lobbyId    VARCHAR(6) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS tbl_estimate
     INDEX idx_questionId (questionId)
 );
 
-CREATE TABLE IF NOT EXISTS tbl_access_token
+CREATE TABLE IF NOT EXISTS TblAccessToken
 (
     id       BIGINT(20)  NOT NULL AUTO_INCREMENT,
     playerId BIGINT(20)  NOT NULL,
@@ -58,14 +58,14 @@ CREATE TABLE IF NOT EXISTS tbl_access_token
     UNIQUE INDEX idx_token (token)
 );
 
-ALTER TABLE tbl_lobby
-    ADD FOREIGN KEY (ownerId) REFERENCES tbl_player (id),
-    ADD FOREIGN KEY (questionId) REFERENCES tbl_question (id);
+ALTER TABLE TblLobby
+    ADD FOREIGN KEY (ownerId) REFERENCES TblPlayer (id),
+    ADD FOREIGN KEY (questionId) REFERENCES TblQuestion (id);
 
-ALTER TABLE tbl_player
-    ADD FOREIGN KEY (lobbyId) REFERENCES tbl_lobby (id);
+ALTER TABLE TblPlayer
+    ADD FOREIGN KEY (lobbyId) REFERENCES TblLobby (id);
 
-ALTER TABLE tbl_estimate
-    ADD FOREIGN KEY (lobbyId) REFERENCES tbl_lobby (id),
-    ADD FOREIGN KEY (playerId) REFERENCES tbl_player (id),
-    ADD FOREIGN KEY (questionId) REFERENCES tbl_question (id);
+ALTER TABLE TblEstimate
+    ADD FOREIGN KEY (lobbyId) REFERENCES TblLobby (id),
+    ADD FOREIGN KEY (playerId) REFERENCES TblPlayer (id),
+    ADD FOREIGN KEY (questionId) REFERENCES TblQuestion (id);
