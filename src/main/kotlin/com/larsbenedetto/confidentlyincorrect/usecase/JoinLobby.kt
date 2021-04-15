@@ -39,6 +39,6 @@ class JoinLobby(
         )
 
         val accessToken = accessTokenGateway.createForPlayerId(player.id!!)
-        return JoinLobbyResponse(player, accessToken)
+        return JoinLobbyResponse(accessToken)
     }
 }
