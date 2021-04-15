@@ -9,6 +9,7 @@ import com.larsbenedetto.confidentlyincorrect.web.model.SubmitEstimateRequest
 import com.larsbenedetto.confidentlyincorrect.web.model.SubmitEstimateResponse
 import com.larsbenedetto.confidentlyincorrect.web.model.ValidationException
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class SubmitEstimate(
@@ -32,6 +33,10 @@ class SubmitEstimate(
 
         val lobby = lobbyGateway.getById(lobbyId)
         val question = questionGateway.getById(lobby.questionId!!)
+
+        if(lobby.questionExpiresAt!!.isBefore(LocalDateTime.now())){
+            throw ValidationException("Question cannot be answered after its lifetime")
+        }
 
         estimateGateway.findPlayersEstimateForQuestionInLobby(lobby.id, question.id, player.id!!)
             .ifPresent { throw ValidationException("Cannot submit multiple estimates") }
