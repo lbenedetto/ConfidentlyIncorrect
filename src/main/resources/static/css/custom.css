@@ -16,6 +16,10 @@ h2 {
     color: white;
 }
 
+ul {
+    color: white;
+}
+
 p, label {
     color: white;
     font-size: 25px;
@@ -28,7 +32,8 @@ button {
 .btn, .form-control {
     border-radius: 25px;
 }
-.center-stuff{
-    display:flex;
+
+.center-stuff {
+    display: flex;
     justify-content: center;
 }
