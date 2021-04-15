@@ -43,7 +43,7 @@ class QuestionGateway(
             scoringType = tbl.scoringType,
             text = tbl.text,
             answer = tbl.answer,
-            category = tbl.category
+            category = tbl.category,
         )
     }
 }

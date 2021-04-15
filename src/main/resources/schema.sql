@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS tbl_lobby
     questionId     BIGINT(20) NULL DEFAULT NULL,
     question_count INT(11)    NOT NULL,
     question_limit INT(11)    NOT NULL,
+    questionExpiresAt DATETIME NOT NULL,
     PRIMARY KEY (id)
 );
 

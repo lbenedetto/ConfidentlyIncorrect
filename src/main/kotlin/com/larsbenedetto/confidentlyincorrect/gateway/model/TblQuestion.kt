@@ -19,4 +19,5 @@ data class TblQuestion(
 
     @Enumerated
     var category: QuestionCategory,
+
 )

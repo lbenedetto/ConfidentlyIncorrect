@@ -2,6 +2,7 @@ package com.larsbenedetto.confidentlyincorrect.gateway.model
 
 import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
 import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -23,4 +24,6 @@ data class TblLobby(
     var questionCount: Int,
 
     var questionLimit: Int,
+
+    var questionExpiresAt: LocalDateTime?
 )

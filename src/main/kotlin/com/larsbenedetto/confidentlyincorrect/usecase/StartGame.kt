@@ -6,6 +6,8 @@ import com.larsbenedetto.confidentlyincorrect.gateway.LobbyGateway
 import com.larsbenedetto.confidentlyincorrect.usecase.service.ScoreNotificationService
 import com.larsbenedetto.confidentlyincorrect.web.model.StartGameRequest
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 @Service
 class StartGame(
@@ -20,7 +22,7 @@ class StartGame(
         }
         val nextQuestionId = scoreNotificationService.notifyPlayers(lobby.id).nextQuestionId
         lobby.questionId = nextQuestionId
+        lobby.questionExpiresAt = LocalDateTime.now().plusMinutes(1);
         lobbyGateway.save(lobby)
-
     }
 }
