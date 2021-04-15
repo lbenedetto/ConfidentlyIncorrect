@@ -12,8 +12,12 @@ h1 {
     color: #e6640c
 }
 
+h2 {
+    color: white;
+}
+
 p, label {
-    color: #ffffff;
+    color: white;
     font-size: 25px;
 }
 
