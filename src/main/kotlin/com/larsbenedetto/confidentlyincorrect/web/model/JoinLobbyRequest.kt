@@ -1,5 +1,5 @@
 package com.larsbenedetto.confidentlyincorrect.web.model
 
-class JoinLobbyRequest(
+data class JoinLobbyRequest(
     val playerName: String
 )

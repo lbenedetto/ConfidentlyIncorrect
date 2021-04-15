@@ -2,7 +2,7 @@ package com.larsbenedetto.confidentlyincorrect.serialization
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.SerializationFeature
-import com.larsbenedetto.confidentlyincorrect.domain.identity.*
+import com.larsbenedetto.confidentlyincorrect.domain.*
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
@@ -21,6 +21,7 @@ class JacksonConfiguration {
                 IdentityDeserializer(LobbyId::class.java),
                 IdentityDeserializer(PlayerId::class.java),
                 IdentityDeserializer(QuestionId::class.java),
+                IdentityDeserializer(AccessToken::class.java),
             )
     }
 }

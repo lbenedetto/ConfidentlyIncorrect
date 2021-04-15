@@ -1,7 +1,7 @@
 package com.larsbenedetto.confidentlyincorrect.web.model
 
-import com.larsbenedetto.confidentlyincorrect.domain.identity.PlayerId
+import com.larsbenedetto.confidentlyincorrect.domain.AccessToken
 
-class StartGameRequest(
-    var playerId: PlayerId
+data class StartGameRequest(
+    var accessToken: AccessToken
 )

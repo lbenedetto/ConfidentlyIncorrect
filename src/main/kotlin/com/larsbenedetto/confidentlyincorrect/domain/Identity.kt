@@ -1,10 +1,8 @@
-package com.larsbenedetto.confidentlyincorrect.domain.identity
+package com.larsbenedetto.confidentlyincorrect.domain
 
 import net.bytebuddy.utility.RandomString
 import java.io.Serializable
 import javax.persistence.Embeddable
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
 
 interface Identity<T> : Serializable {
     val value: T
@@ -25,7 +23,10 @@ data class EstimateId(override val value: Long) : LongIdentity
 data class LobbyId(override val value: String) : StringIdentity
 
 @Embeddable
-data class PlayerId(override val value: String) : StringIdentity
+data class PlayerId(override val value: Long) : LongIdentity
 
 @Embeddable
 data class QuestionId(override var value: Long): LongIdentity
+
+@Embeddable
+data class AccessToken(override val value: String) : StringIdentity

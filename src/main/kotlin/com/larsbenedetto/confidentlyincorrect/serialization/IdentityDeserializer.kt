@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.core.JsonToken
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer
-import com.larsbenedetto.confidentlyincorrect.domain.identity.Identity
+import com.larsbenedetto.confidentlyincorrect.domain.Identity
 import org.springframework.lang.Nullable
 import java.io.IOException
 import java.lang.reflect.InvocationTargetException

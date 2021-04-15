@@ -3,7 +3,7 @@ package com.larsbenedetto.confidentlyincorrect.serialization
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
-import com.larsbenedetto.confidentlyincorrect.domain.identity.Identity
+import com.larsbenedetto.confidentlyincorrect.domain.Identity
 import org.springframework.lang.Nullable
 import java.io.IOException
 

@@ -1,6 +1,6 @@
 package com.larsbenedetto.confidentlyincorrect.domain
 
-import com.larsbenedetto.confidentlyincorrect.usecase.intervalExpansionFactor
+import com.larsbenedetto.confidentlyincorrect.usecase.service.intervalExpansionFactor
 import kotlin.math.abs
 import kotlin.math.ln
 import kotlin.math.log10

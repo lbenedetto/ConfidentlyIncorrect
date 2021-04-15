@@ -1,6 +1,6 @@
 package com.larsbenedetto.confidentlyincorrect.web.model
 
-import com.larsbenedetto.confidentlyincorrect.domain.identity.Identity
+import com.larsbenedetto.confidentlyincorrect.domain.Identity
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
