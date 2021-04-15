@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS tbl_lobby
 (
-    id             VARCHAR(6) NOT NULL,
-    capacity       INT(11)    NULL DEFAULT NULL,
-    ownerId        BIGINT(20) NOT NULL,
-    questionId     BIGINT(20) NULL DEFAULT NULL,
-    question_count INT(11)    NOT NULL,
-    question_limit INT(11)    NOT NULL,
-    questionExpiresAt DATETIME NOT NULL,
+    id                VARCHAR(6) NOT NULL,
+    capacity          INT(11)    NULL DEFAULT NULL,
+    ownerId           BIGINT(20) NOT NULL,
+    questionId        BIGINT(20) NULL DEFAULT NULL,
+    question_count    INT(11)    NOT NULL,
+    question_limit    INT(11)    NOT NULL,
+    questionExpiresAt DATETIME   NOT NULL,
     PRIMARY KEY (id)
 );
 

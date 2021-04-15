@@ -29,4 +29,10 @@ class ApiExceptionHandler : ResponseEntityExceptionHandler() {
     private fun handle(e: EntityLookupFailedException): ApiResponse<Nothing> {
         return ApiResponse.notFound(e.message)
     }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    private fun handle(e: Exception): ApiResponse<Nothing> {
+        return ApiResponse.error(e)
+    }
 }

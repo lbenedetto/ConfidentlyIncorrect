@@ -3,16 +3,15 @@ package com.larsbenedetto.confidentlyincorrect.usecase
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.gateway.AccessTokenGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.LobbyGateway
-import com.larsbenedetto.confidentlyincorrect.usecase.service.ScoreNotificationService
+import com.larsbenedetto.confidentlyincorrect.usecase.service.NotificationService
 import com.larsbenedetto.confidentlyincorrect.web.model.StartGameRequest
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
-import java.time.ZoneOffset
 
 @Service
 class StartGame(
     val lobbyGateway: LobbyGateway,
-    val scoreNotificationService: ScoreNotificationService,
+    val scoreNotificationService: NotificationService,
     val accessTokenGateway: AccessTokenGateway
 ) {
     fun execute(lobbyId: LobbyId, request: StartGameRequest) {
@@ -20,7 +19,7 @@ class StartGame(
         if (accessTokenGateway.isValid(request.accessToken, lobby.ownerId)) {
             throw IllegalStateException("You do not have access to do this")
         }
-        val nextQuestionId = scoreNotificationService.notifyPlayers(lobby.id).nextQuestionId
+        val nextQuestionId = scoreNotificationService.notifyNextQuestion(lobby.id).nextQuestionId
         lobby.questionId = nextQuestionId
         lobby.questionExpiresAt = LocalDateTime.now().plusMinutes(1);
         lobbyGateway.save(lobby)

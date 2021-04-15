@@ -1,10 +1,11 @@
 package com.larsbenedetto.confidentlyincorrect.usecase
 
-import com.larsbenedetto.confidentlyincorrect.domain.entity.Player
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
+import com.larsbenedetto.confidentlyincorrect.domain.entity.Player
 import com.larsbenedetto.confidentlyincorrect.gateway.AccessTokenGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.LobbyGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.PlayerGateway
+import com.larsbenedetto.confidentlyincorrect.usecase.service.NotificationService
 import com.larsbenedetto.confidentlyincorrect.web.model.JoinLobbyRequest
 import com.larsbenedetto.confidentlyincorrect.web.model.JoinLobbyResponse
 import com.larsbenedetto.confidentlyincorrect.web.model.ValidationException
@@ -14,7 +15,8 @@ import org.springframework.stereotype.Service
 class JoinLobby(
     val playerGateway: PlayerGateway,
     val lobbyGateway: LobbyGateway,
-    val accessTokenGateway: AccessTokenGateway
+    val accessTokenGateway: AccessTokenGateway,
+    val notificationService: NotificationService,
 ) {
     fun execute(lobbyId: LobbyId, request: JoinLobbyRequest): JoinLobbyResponse {
         val lobby = lobbyGateway.getById(lobbyId)
@@ -28,6 +30,13 @@ class JoinLobby(
             lobbyId = lobbyId,
         )
         player = playerGateway.save(player)
+
+        notificationService.notifyPlayerJoined(
+            lobbyId = lobbyId,
+            player = player,
+            playerCount = players.size + 1,
+            playerLimit = lobby.capacity
+        )
 
         val accessToken = accessTokenGateway.createForPlayerId(player.id!!)
         return JoinLobbyResponse(player, accessToken)

@@ -3,7 +3,7 @@ package com.larsbenedetto.confidentlyincorrect.usecase
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.entity.Estimate
 import com.larsbenedetto.confidentlyincorrect.gateway.*
-import com.larsbenedetto.confidentlyincorrect.usecase.service.ScoreNotificationService
+import com.larsbenedetto.confidentlyincorrect.usecase.service.NotificationService
 import com.larsbenedetto.confidentlyincorrect.usecase.service.ScoringService
 import com.larsbenedetto.confidentlyincorrect.web.model.SubmitEstimateRequest
 import com.larsbenedetto.confidentlyincorrect.web.model.SubmitEstimateResponse
@@ -18,7 +18,7 @@ class SubmitEstimate(
     val estimateGateway: EstimateGateway,
     val lobbyGateway: LobbyGateway,
     val scoringService: ScoringService,
-    val scoreNotificationService: ScoreNotificationService,
+    val notificationService: NotificationService,
     val accessTokenGateway: AccessTokenGateway
 ) {
     fun execute(lobbyId: LobbyId, request: SubmitEstimateRequest): SubmitEstimateResponse {
@@ -32,12 +32,11 @@ class SubmitEstimate(
         }
 
         val lobby = lobbyGateway.getById(lobbyId)
-        val question = questionGateway.getById(lobby.questionId!!)
-
-        if(lobby.questionExpiresAt!!.isBefore(LocalDateTime.now())){
+        if (lobby.questionExpiresAt!!.isBefore(LocalDateTime.now())) {
             throw ValidationException("Question cannot be answered after its lifetime")
         }
 
+        val question = questionGateway.getById(lobby.questionId!!)
         estimateGateway.findPlayersEstimateForQuestionInLobby(lobby.id, question.id, player.id!!)
             .ifPresent { throw ValidationException("Cannot submit multiple estimates") }
 
@@ -62,13 +61,11 @@ class SubmitEstimate(
             )
         )
 
-        val players = playerGateway.findParticipatingByLobbyId(lobby.id)
-        val estimates = estimateGateway.findByLobbyAndQuestion(lobby.id, question.id)
-
+        val notification = notificationService.notifyPlayerAnswered(lobbyId, question.id)
         return SubmitEstimateResponse(
             score = score,
-            otherPlayersCount = players.size,
-            otherAnswersCount = estimates.size
+            otherPlayersCount = notification.playerCount,
+            otherAnswersCount = notification.answerCount
         )
     }
 }
