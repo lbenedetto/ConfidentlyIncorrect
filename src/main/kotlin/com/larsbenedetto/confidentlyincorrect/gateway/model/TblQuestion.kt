@@ -8,7 +8,7 @@ import javax.persistence.*
 @Entity
 data class TblQuestion(
     @Id
-    var id: QuestionId,
+    var id: Long,
 
     @Enumerated
     var scoringType: ScoringType,

@@ -19,11 +19,13 @@ class EstimateGateway(
     }
 
     fun getListOfQuestionsFromLobby(lobbyId: LobbyId): Set<QuestionId> {
-        return estimateRepository.isQuestionUniqueToLobby(lobbyId)
+        return estimateRepository.isQuestionUniqueToLobby(lobbyId.value)
+            .map { QuestionId(it) }
+            .toSet()
     }
 
     fun findByLobbyAndQuestion(lobbyId: LobbyId, questionId: QuestionId): List<Estimate> {
-        return estimateRepository.findAllByLobbyIdAndQuestionId(lobbyId, questionId)
+        return estimateRepository.findAllByLobbyIdAndQuestionId(lobbyId.value, questionId.value)
             .map(this::toEntity)
     }
 
@@ -33,18 +35,18 @@ class EstimateGateway(
         playerId: PlayerId
     ): Optional<Estimate> {
         return estimateRepository.findByLobbyIdAndQuestionIdAndPlayerId(
-            lobbyId,
-            questionId,
-            playerId
+            lobbyId.value,
+            questionId.value,
+            playerId.value
         ).map(this::toEntity)
     }
 
     private fun fromEntity(entity: Estimate): TblEstimate {
         return TblEstimate(
             id = entity.id?.value,
-            lobbyId = entity.lobbyId,
-            playerId = entity.playerId,
-            questionId = entity.questionId,
+            lobbyId = entity.lobbyId.value,
+            playerId = entity.playerId.value,
+            questionId = entity.questionId.value,
             lowerBound = entity.lowerBound,
             upperBound = entity.upperBound,
             score = entity.score
@@ -54,9 +56,9 @@ class EstimateGateway(
     private fun toEntity(tbl: TblEstimate): Estimate {
         return Estimate(
             id = EstimateId(tbl.id!!),
-            lobbyId = tbl.lobbyId,
-            playerId = tbl.playerId,
-            questionId = tbl.questionId,
+            lobbyId = LobbyId(tbl.lobbyId),
+            playerId = PlayerId(tbl.playerId),
+            questionId = QuestionId(tbl.questionId),
             lowerBound = tbl.lowerBound,
             upperBound = tbl.upperBound,
             score = tbl.score

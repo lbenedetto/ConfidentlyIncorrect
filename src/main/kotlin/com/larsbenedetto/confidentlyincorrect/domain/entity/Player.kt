@@ -8,5 +8,5 @@ data class Player(
     var name: String,
     var score: Double = 0.0,
     var isParticipating: Boolean = true,
-    var lobbyId: LobbyId,
+    var lobbyId: LobbyId? = null,
 )

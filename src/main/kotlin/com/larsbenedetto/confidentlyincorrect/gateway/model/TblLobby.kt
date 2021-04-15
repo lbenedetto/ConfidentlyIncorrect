@@ -1,10 +1,9 @@
 package com.larsbenedetto.confidentlyincorrect.gateway.model
 
-import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
-import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
 import org.hibernate.annotations.DynamicUpdate
 import java.time.LocalDateTime
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.Id
 
 @Entity
 @DynamicUpdate
@@ -13,13 +12,9 @@ data class TblLobby(
     @Id
     var id: String,
 
-    @Embedded
-    @AttributeOverride(name = "value", column = Column(name = "ownerId"))
-    var ownerId: PlayerId,
+    var ownerId: Long,
 
-    @Embedded
-    @AttributeOverride(name = "value", column = Column(name = "questionId"))
-    var questionId: QuestionId?,
+    var questionId: Long?,
 
     var capacity: Int?,
 

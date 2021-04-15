@@ -39,7 +39,7 @@ class QuestionGateway(
 
     fun toEntity(tbl: TblQuestion): Question {
         return Question(
-            id = tbl.id,
+            id = QuestionId(tbl.id),
             scoringType = tbl.scoringType,
             text = tbl.text,
             answer = tbl.answer,

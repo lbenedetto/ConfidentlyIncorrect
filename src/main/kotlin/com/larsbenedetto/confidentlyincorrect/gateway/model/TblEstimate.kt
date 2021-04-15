@@ -1,29 +1,23 @@
 package com.larsbenedetto.confidentlyincorrect.gateway.model
 
-import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
-import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
-import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
 import org.hibernate.annotations.DynamicUpdate
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
 
 @Entity
 @DynamicUpdate
 data class TblEstimate(
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long?,
 
-    @Embedded
-    @AttributeOverride(name = "value", column = Column(name = "lobbyId"))
-    var lobbyId: LobbyId,
+    var lobbyId: String,
 
-    @Embedded
-    @AttributeOverride(name = "value", column = Column(name = "playerId"))
-    var playerId: PlayerId,
+    var playerId: Long,
 
-    @Embedded
-    @AttributeOverride(name = "value", column = Column(name = "questionId"))
-    var questionId: QuestionId,
+    var questionId: Long,
 
     var lowerBound: Double,
 

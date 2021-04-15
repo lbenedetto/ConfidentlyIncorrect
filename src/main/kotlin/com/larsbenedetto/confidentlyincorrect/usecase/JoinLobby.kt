@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class JoinLobby(
+    val createPlayer: CreatePlayer,
     val playerGateway: PlayerGateway,
     val lobbyGateway: LobbyGateway,
-    val accessTokenGateway: AccessTokenGateway,
     val notificationService: NotificationService,
 ) {
     fun execute(lobbyId: LobbyId, request: JoinLobbyRequest): JoinLobbyResponse {
@@ -25,20 +25,17 @@ class JoinLobby(
             throw ValidationException("Cannot join a full lobby")
         }
 
-        var player = Player(
-            name = request.playerName,
-            lobbyId = lobbyId,
-        )
-        player = playerGateway.save(player)
+        val created = createPlayer.execute(request.playerName)
+        created.player.lobbyId = lobbyId
+        playerGateway.save(created.player)
 
         notificationService.notifyPlayerJoined(
             lobbyId = lobbyId,
-            player = player,
+            player = created.player,
             playerCount = players.size + 1,
             playerLimit = lobby.capacity
         )
 
-        val accessToken = accessTokenGateway.createForPlayerId(player.id!!)
-        return JoinLobbyResponse(accessToken)
+        return JoinLobbyResponse(created.accessToken)
     }
 }

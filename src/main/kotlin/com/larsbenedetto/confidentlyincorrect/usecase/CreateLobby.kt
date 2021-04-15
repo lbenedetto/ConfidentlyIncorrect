@@ -1,10 +1,8 @@
 package com.larsbenedetto.confidentlyincorrect.usecase
 
-import com.larsbenedetto.confidentlyincorrect.domain.entity.Lobby
-import com.larsbenedetto.confidentlyincorrect.domain.entity.Player
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.StringIdentity
-import com.larsbenedetto.confidentlyincorrect.gateway.AccessTokenGateway
+import com.larsbenedetto.confidentlyincorrect.domain.entity.Lobby
 import com.larsbenedetto.confidentlyincorrect.gateway.LobbyGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.PlayerGateway
 import com.larsbenedetto.confidentlyincorrect.web.model.CreateLobbyRequest
@@ -14,28 +12,24 @@ import org.springframework.stereotype.Service
 @Service
 class CreateLobby(
     val lobbyGateway: LobbyGateway,
-    val playerGateway: PlayerGateway,
-    val accessTokenGateway: AccessTokenGateway
+    val createPlayer: CreatePlayer,
+    val playerGateway: PlayerGateway
 ) {
     fun execute(request: CreateLobbyRequest): CreateLobbyResponse {
+        val created = createPlayer.execute(request.hostName, request.isParticipating)
+
         val lobbyId = LobbyId(StringIdentity.generateIdValue(6))
-
-        var player = Player(
-            name = request.hostName,
-            lobbyId = lobbyId,
-            isParticipating = request.isParticipating
-        )
-        player = playerGateway.save(player)
-
         var lobby = Lobby(
             id = lobbyId,
-            ownerId = player.id!!,
+            ownerId = created.player.id!!,
             capacity = request.capacity,
             questionLimit = request.questionLimit
         )
         lobby = lobbyGateway.save(lobby)
 
-        val accessToken = accessTokenGateway.createForPlayerId(player.id!!)
-        return CreateLobbyResponse(lobby.id, accessToken)
+        created.player.lobbyId = lobbyId
+        playerGateway.save(created.player)
+
+        return CreateLobbyResponse(lobby.id, created.accessToken)
     }
 }

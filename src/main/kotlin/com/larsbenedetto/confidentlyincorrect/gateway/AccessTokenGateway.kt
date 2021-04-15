@@ -21,11 +21,11 @@ class AccessTokenGateway(
     fun createForPlayerId(playerId: PlayerId): AccessToken {
         val tbl = accessTokenRepository.save(
             TblAccessToken(
-                playerId = playerId,
-                token = AccessToken(UUID.randomUUID().toString())
+                playerId = playerId.value,
+                token = UUID.randomUUID().toString()
             )
         )
-        return tbl.token
+        return AccessToken(tbl.token)
     }
 
     fun isValid(token: AccessToken, playerId: PlayerId): Boolean {
@@ -34,6 +34,6 @@ class AccessTokenGateway(
     }
 
     fun getPlayerIdByAccessToken(token: AccessToken): PlayerId {
-        return accessTokenRepository.findByToken(token).playerId
+        return PlayerId(accessTokenRepository.findByToken(token).playerId)
     }
 }

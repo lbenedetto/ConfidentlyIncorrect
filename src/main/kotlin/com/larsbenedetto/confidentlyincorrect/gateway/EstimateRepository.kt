@@ -19,8 +19,8 @@ interface EstimateRepository : CrudRepository<TblEstimate, Long> {
                 " ORDER BY e.score DESC"
     )
     fun findAllByLobbyIdAndQuestionId(
-        @Param("lobbyId") lobbyId: LobbyId,
-        @Param("questionId") questionId: QuestionId
+        @Param("lobbyId") lobbyId: String,
+        @Param("questionId") questionId: Long
     ): List<TblEstimate>
 
     @Query(
@@ -28,13 +28,13 @@ interface EstimateRepository : CrudRepository<TblEstimate, Long> {
                 " WHERE e.lobbyId = :lobbyId"
     )
     fun isQuestionUniqueToLobby(
-        @Param("lobbyId") lobbyId: LobbyId
-    ): Set<QuestionId>
+        @Param("lobbyId") lobbyId: String
+    ): List<Long>
 
     fun findByLobbyIdAndQuestionIdAndPlayerId(
-        @Param("lobbyId") lobbyId: LobbyId,
-        @Param("questionId") questionId: QuestionId,
-        @Param("playerId") playerId: PlayerId
+        @Param("lobbyId") lobbyId: String,
+        @Param("questionId") questionId: Long,
+        @Param("playerId") playerId: Long
     ): Optional<TblEstimate>
 
 }

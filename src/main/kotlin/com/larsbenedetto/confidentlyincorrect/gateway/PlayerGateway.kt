@@ -4,6 +4,7 @@ import com.larsbenedetto.confidentlyincorrect.domain.entity.Player
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
 import com.larsbenedetto.confidentlyincorrect.gateway.model.TblPlayer
+import com.larsbenedetto.confidentlyincorrect.util.mapNull
 import com.larsbenedetto.confidentlyincorrect.web.model.EntityLookupFailedException
 import org.springframework.stereotype.Service
 
@@ -12,12 +13,12 @@ class PlayerGateway(
     val playerRepository: PlayerRepository
 ) {
     fun findParticipatingByLobbyId(lobbyId: LobbyId): List<Player> {
-        return playerRepository.findParticipatingByLobbyId(lobbyId)
+        return playerRepository.findParticipatingByLobbyId(lobbyId.value)
             .map(this::toEntity)
     }
 
     fun findByLobbyId(lobbyId: LobbyId): List<Player> {
-        return playerRepository.findByLobbyId(lobbyId)
+        return playerRepository.findByLobbyId(lobbyId.value)
             .map(this::toEntity)
     }
 
@@ -37,7 +38,7 @@ class PlayerGateway(
             id = entity.id?.value,
             name = entity.name,
             score = entity.score,
-            lobbyId = entity.lobbyId,
+            lobbyId = entity.lobbyId?.value,
             isParticipating = entity.isParticipating
         )
     }
@@ -47,7 +48,7 @@ class PlayerGateway(
             id = PlayerId(tbl.id!!),
             name = tbl.name,
             score = tbl.score,
-            lobbyId = tbl.lobbyId,
+            lobbyId = tbl.lobbyId.mapNull { LobbyId(it) },
             isParticipating = tbl.isParticipating
         )
     }

@@ -1,6 +1,5 @@
 package com.larsbenedetto.confidentlyincorrect.gateway.model
 
-import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import org.hibernate.annotations.DynamicUpdate
 import javax.persistence.*
 
@@ -8,7 +7,7 @@ import javax.persistence.*
 @DynamicUpdate
 data class TblPlayer(
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long?,
 
     var name: String,
@@ -17,7 +16,5 @@ data class TblPlayer(
 
     var isParticipating: Boolean,
 
-    @Embedded
-    @AttributeOverride(name = "value", column = Column(name = "lobbyId"))
-    var lobbyId: LobbyId,
+    var lobbyId: String?,
 )

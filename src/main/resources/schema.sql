@@ -4,9 +4,9 @@ CREATE TABLE IF NOT EXISTS TblLobby
     capacity          INT(11)    NULL DEFAULT NULL,
     ownerId           BIGINT(20) NOT NULL,
     questionId        BIGINT(20) NULL DEFAULT NULL,
-    question_count    INT(11)    NOT NULL,
-    question_limit    INT(11)    NOT NULL,
-    questionExpiresAt DATETIME   NOT NULL,
+    questionCount     INT(11)    NOT NULL,
+    questionLimit     INT(11)    NOT NULL,
+    questionExpiresAt DATETIME   NULL DEFAULT NULL,
     PRIMARY KEY (id)
 );
 
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS TblPlayer
     name            VARCHAR(100) NOT NULL,
     score           INT(11)      NOT NULL,
     isParticipating TINYINT(1)   NOT NULL,
-    lobbyId         VARCHAR(6)   NOT NULL,
+    lobbyId         VARCHAR(6)   NULL DEFAULT NULL,
     PRIMARY KEY (id),
     INDEX idx_lobbyId (lobbyId),
     INDEX idx_isParticipating (isParticipating)
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS TblAccessToken
 (
     id       BIGINT(20)  NOT NULL AUTO_INCREMENT,
     playerId BIGINT(20)  NOT NULL,
-    token    VARCHAR(32) NOT NULL,
+    token    VARCHAR(36) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE INDEX idx_playerId (playerId),
     UNIQUE INDEX idx_token (token)
