@@ -1,9 +1,9 @@
 package com.larsbenedetto.confidentlyincorrect.gateway
 
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
-import com.larsbenedetto.confidentlyincorrect.gateway.model.TblQuestion
 import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
 import com.larsbenedetto.confidentlyincorrect.domain.entity.Question
+import com.larsbenedetto.confidentlyincorrect.gateway.model.TblQuestion
 import com.larsbenedetto.confidentlyincorrect.web.model.EntityLookupFailedException
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
@@ -37,7 +37,7 @@ class QuestionGateway(
         return getById(questionId)
     }
 
-    fun toEntity(tbl: TblQuestion) : Question {
+    fun toEntity(tbl: TblQuestion): Question {
         return Question(
             id = tbl.id,
             scoringType = tbl.scoringType,

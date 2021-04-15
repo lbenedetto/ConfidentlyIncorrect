@@ -1,10 +1,10 @@
 package com.larsbenedetto.confidentlyincorrect.gateway
 
-import com.larsbenedetto.confidentlyincorrect.domain.entity.Estimate
 import com.larsbenedetto.confidentlyincorrect.domain.EstimateId
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
 import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
+import com.larsbenedetto.confidentlyincorrect.domain.entity.Estimate
 import com.larsbenedetto.confidentlyincorrect.gateway.model.TblEstimate
 import org.springframework.stereotype.Service
 import java.util.*
@@ -18,7 +18,7 @@ class EstimateGateway(
         estimateRepository.save(fromEntity(estimate))
     }
 
-    fun getListOfQuestionsFromLobby(lobbyId: LobbyId): Set<QuestionId>{
+    fun getListOfQuestionsFromLobby(lobbyId: LobbyId): Set<QuestionId> {
         return estimateRepository.isQuestionUniqueToLobby(lobbyId)
     }
 

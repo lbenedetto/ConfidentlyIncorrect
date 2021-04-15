@@ -102,6 +102,10 @@ function connect() {
     });
 }
 
+function leaveLobby() {
+    window.location.href = "/";
+}
+
 function post(url, data, onSuccess) {
     console.log("POST " + url)
     $.ajax({

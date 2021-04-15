@@ -12,6 +12,37 @@
     <link rel="stylesheet" href="/static/css/custom.css">
 </head>
 <body>
+<div class="container-fluid w-75 p-3">
+    <h1 class="text-center"><a style="color:#ffffff">ROUND</a> <a style="color:#e6640c">COMPLETED</a>
+    </h1>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <br/>
+            <br/>
+            <div class="text-center">
+                <h2>The answer to {{QUESTION}} was {{ANSWER}}!</h2>
+                <p>Here are the scores from this round</p>
+            </div>
 
+            <div class="col-md-7 offset-md-5">
+                <ul class="list-inline mx-auto justify-content-center">
+                    <li>{{NAME}}, {{L-U}}, {{SCORE}}</li>
+                    <li>{{NAME}}, {{L-U}}, {{SCORE}}</li>
+                    <li>{{NAME}}, {{L-U}}, {{SCORE}}</li>
+                    <li>{{NAME}}, {{L-U}}, {{SCORE}}</li>
+                    <li>{{NAME}}, {{L-U}}, {{SCORE}}</li>
+                    <li>{{NAME}}, {{L-U}}, {{SCORE}}</li>
+                </ul>
+            </div>
+
+            <br/>
+            <form>
+                <div class="center-stuff">
+                    <button type="button" class="btn btn-primary" onclick="nextQuestion()">Next Question</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
