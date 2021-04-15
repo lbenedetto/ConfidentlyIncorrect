@@ -10,4 +10,5 @@ data class Question(
     var text: String,
     var answer: Double,
     var category: QuestionCategory,
+    var expirationDate: Long
 )

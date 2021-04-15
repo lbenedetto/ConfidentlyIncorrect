@@ -19,4 +19,6 @@ data class TblQuestion(
 
     @Enumerated
     var category: QuestionCategory,
+
+    var expirationDate: Long
 )
