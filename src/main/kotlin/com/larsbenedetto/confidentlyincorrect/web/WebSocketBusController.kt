@@ -1,6 +1,6 @@
 package com.larsbenedetto.confidentlyincorrect.web
 
-import com.larsbenedetto.confidentlyincorrect.domain.identity.LobbyId
+import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.web.model.ApiResponse
 import com.larsbenedetto.confidentlyincorrect.web.model.EmptyResponse
 import org.springframework.http.ResponseEntity

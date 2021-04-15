@@ -1,4 +1,4 @@
-package com.larsbenedetto.confidentlyincorrect.usecase
+package com.larsbenedetto.confidentlyincorrect.usecase.service
 import com.larsbenedetto.confidentlyincorrect.domain.ScoringType
 import org.springframework.stereotype.Service
 import kotlin.math.*

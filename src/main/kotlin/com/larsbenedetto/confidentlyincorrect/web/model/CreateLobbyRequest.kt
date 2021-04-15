@@ -1,6 +1,8 @@
 package com.larsbenedetto.confidentlyincorrect.web.model
 
-class CreateLobbyRequest(
+data class CreateLobbyRequest(
     val hostName: String,
-    val isParticipating: Boolean
+    val isParticipating: Boolean,
+    val capacity: Int?,
+    val questionLimit: Int
 )

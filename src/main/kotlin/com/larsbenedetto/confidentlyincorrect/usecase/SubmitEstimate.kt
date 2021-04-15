@@ -1,13 +1,12 @@
 package com.larsbenedetto.confidentlyincorrect.usecase
 
-import com.larsbenedetto.confidentlyincorrect.domain.Score
-import com.larsbenedetto.confidentlyincorrect.domain.database.Estimate
-import com.larsbenedetto.confidentlyincorrect.domain.identity.LobbyId
-import com.larsbenedetto.confidentlyincorrect.gateway.EstimateGateway
-import com.larsbenedetto.confidentlyincorrect.gateway.LobbyGateway
-import com.larsbenedetto.confidentlyincorrect.gateway.PlayerGateway
-import com.larsbenedetto.confidentlyincorrect.gateway.QuestionGateway
+import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
+import com.larsbenedetto.confidentlyincorrect.domain.entity.Estimate
+import com.larsbenedetto.confidentlyincorrect.gateway.*
+import com.larsbenedetto.confidentlyincorrect.usecase.service.ScoreNotificationService
+import com.larsbenedetto.confidentlyincorrect.usecase.service.ScoringService
 import com.larsbenedetto.confidentlyincorrect.web.model.SubmitEstimateRequest
+import com.larsbenedetto.confidentlyincorrect.web.model.SubmitEstimateResponse
 import com.larsbenedetto.confidentlyincorrect.web.model.ValidationException
 import org.springframework.stereotype.Service
 
@@ -18,21 +17,23 @@ class SubmitEstimate(
     val estimateGateway: EstimateGateway,
     val lobbyGateway: LobbyGateway,
     val scoringService: ScoringService,
-    val scoreNotificationService: ScoreNotificationService
+    val scoreNotificationService: ScoreNotificationService,
+    val accessTokenGateway: AccessTokenGateway
 ) {
-    fun execute(lobbyId: LobbyId, request: SubmitEstimateRequest): Score {
-        val player = playerGateway.getById(request.playerId)
-        if (!player.isParticipating) {
-            throw ValidationException("Inactive player cannot answer questions")
-        }
+    fun execute(lobbyId: LobbyId, request: SubmitEstimateRequest): SubmitEstimateResponse {
+        val playerId = accessTokenGateway.getPlayerIdByAccessToken(request.accessToken)
+        val player = playerGateway.getById(playerId)
         if (player.lobbyId != lobbyId) {
             throw ValidationException("Player is not a member of this lobby")
+        }
+        if (!player.isParticipating) {
+            throw ValidationException("Inactive player cannot answer questions")
         }
 
         val lobby = lobbyGateway.getById(lobbyId)
         val question = questionGateway.getById(lobby.questionId!!)
 
-        estimateGateway.findByLobbyAndQuestionAndPlayer(lobby.id, question.id, player.id)
+        estimateGateway.findPlayersEstimateForQuestionInLobby(lobby.id, question.id, player.id!!)
             .ifPresent { throw ValidationException("Cannot submit multiple estimates") }
 
         val score = scoringService.calculateScore(
@@ -48,7 +49,7 @@ class SubmitEstimate(
             Estimate(
                 id = null,
                 lobbyId = lobby.id,
-                playerId = player.id,
+                playerId = player.id!!,
                 questionId = question.id,
                 lowerBound = request.lowerBound,
                 upperBound = request.upperBound,
@@ -58,15 +59,11 @@ class SubmitEstimate(
 
         val players = playerGateway.findParticipatingByLobbyId(lobby.id)
         val estimates = estimateGateway.findByLobbyAndQuestion(lobby.id, question.id)
-        if (estimates.size == players.size) {
-            scoreNotificationService.notifyPlayers(lobby.id, question, estimates, players)
-        }
 
-        return Score(
+        return SubmitEstimateResponse(
             score = score,
-            playerName = player.name,
-            lowerBound = request.lowerBound,
-            upperBound = request.upperBound
+            otherPlayersCount = players.size,
+            otherAnswersCount = estimates.size
         )
     }
 }
