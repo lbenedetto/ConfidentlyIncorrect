@@ -16,6 +16,20 @@ class PageController(
         return "Landing"
     }
 
+    @GetMapping("/host")
+    fun host(
+        model: Model
+    ): String? {
+        return "HostLobby"
+    }
+
+    @GetMapping("/join")
+    fun join(
+        model: Model
+    ): String? {
+        return "JoinLobby"
+    }
+
     @GetMapping("/lobby")
     fun lobby(
         model: Model

@@ -17,14 +17,10 @@
                 be careful.</p>
             <br/>
             <form>
-                <div class="form-group center-stuff">
-                    <input type="text" class="form-control w-25" id="InputUsernameField"
-                           aria-describedby="Username" placeholder="Username">
-                </div>
-                <br/>
                 <div class="center-stuff">
-                    <button type="button" class="btn btn-success" onclick="hostLobby()">Host Game</button>
-                    <button type="button" class="btn btn-primary" onclick="joinLobby()">Join Game</button>
+                    <button type="button" class="btn btn-lg btn-success" onclick="window.location.href = '/host'" style="padding: 1em">Host Game</button>
+                    <span style="width: 3em"></span>
+                    <button type="button" class="btn btn-lg btn-primary" onclick="window.location.href = '/join'" style="padding: 1em">Join Game</button>
                 </div>
             </form>
         </div>

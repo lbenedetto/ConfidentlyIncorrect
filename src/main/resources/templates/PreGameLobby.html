@@ -3,6 +3,8 @@
 <head>
     <title>Confidently Incorrect</title>
     <div th:replace="fragments/header :: header"></div>
+    <script src="/static/js/runtime~PreGameLobby.bundle.js"></script>
+    <script src="/static/js/PreGameLobby.bundle.js"></script>
 </head>
 <body>
 <div class="container-fluid w-75 p-3">
@@ -13,21 +15,15 @@
         <br/>
         <br/>
         <div class="text-center">
-            <h2>*queue elevator music*</h2>
+            <h2 id="DisplayLobbyCode">*queue elevator music*</h2>
             <p>
-                We're currently waiting for everyone to join the lobby
+                Waiting for other players...
             </p>
         </div>
     </div>
     <div class="row">
         <div class="col-md-3 order-md-1 offset-md-4">
-            <ul class="list-inline mx-auto justify-content-center">
-                <li>{{NAME}}</li>
-                <li>{{NAME}}</li>
-                <li>{{NAME}}</li>
-                <li>{{NAME}}</li>
-                <li>{{NAME}}</li>
-                <li>{{NAME}}</li>
+            <ul id="PlayerList" class="list-inline mx-auto justify-content-center">
             </ul>
         </div>
         <div class="col-md-3 order-md-2">
@@ -36,8 +32,8 @@
     </div>
     <br/>
     <form>
-        <div class="center-stuff">
-            <button type="button" class="btn btn-primary" onclick="startGame()">Start Game</button>
+        <div class="center-stuff" display="none">
+            <button id="BtnStartGame" type="button" class="btn btn-primary" onclick="nextQuestion()">Start Game</button>
         </div>
     </form>
 </div>

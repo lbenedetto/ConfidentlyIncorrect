@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Confidently Incorrect</title>
+  <div th:replace="fragments/header :: header"></div>
+  <script src="/static/js/runtime~JoinLobby.bundle.js"></script>
+  <script src="/static/js/JoinLobby.bundle.js"></script>
+</head>
+<body>
+<div class="container-fluid w-75 p-3">
+  <h1 class="text-center"><a style="color:#ffffff">CONFIDENTLY</a> <a style="color:#e6640c">INCORRECT</a>
+  </h1>
+  <div class="row center-stuff" style="padding-top: 5em">
+    <div class="w-50">
+      <form>
+        <div class="form-group">
+          <label for="InputUsernameField">Username</label>
+          <input type="text" class="form-control" id="InputUsernameField"
+                 placeholder="">
+        </div>
+        <div class="form-group" style="padding-top: 3em">
+          <label for="InputLobbyCode">Lobby code</label>
+          <input type="number" class="form-control" id="InputLobbyCode"
+                 placeholder="ASDFGH">
+        </div>
+        <div class="form-group center-stuff" style="padding-top: 3em">
+          <input type="checkbox" checked data-toggle="toggle" data-on="Participating"
+                 data-off="Viewing" data-onstyle="success" data-offstyle="dark">
+        </div>
+        <br/>
+        <div class="center-stuff" style="padding-top: 30em">
+          <button id="BtnJoinLobby" type="button" class="btn btn-lg btn-primary" style="padding: 1em">Join Game</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

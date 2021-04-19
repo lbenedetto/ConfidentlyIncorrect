@@ -35,14 +35,14 @@ class LobbyController(
         return ApiResponse.ok(response)
     }
 
-    @GetMapping("/{lobbyId}/")
+    @PostMapping("/{lobbyId}/")
     fun getLobby(
         @PathVariable("lobbyId") lobbyId: LobbyId
     ): ResponseEntity<ApiResponse<LobbyDetails>> {
         return ApiResponse.ok(getLobbyDetails.execute(lobbyId))
     }
 
-    @GetMapping("/{lobbyId}/results/{questionId}")
+    @PostMapping("/{lobbyId}/results/{questionId}")
     fun getQuestionsResults(
         @PathVariable("lobbyId") lobbyId: LobbyId,
         @PathVariable("questionId") questionId: QuestionId
