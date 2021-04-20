@@ -4,7 +4,9 @@ import {
     CreateLobbyResponse,
     JoinLobbyResponse,
     LobbyDetails,
-    QuestionResults
+    QuestionResults,
+    SubmitEstimateRequest,
+    SubmitEstimateResponse
 } from "./Model"
 
 export function hostLobby(request: CreateLobbyRequest, resultHandler: (createdLobby: CreateLobbyResponse) => void) {
@@ -69,6 +71,19 @@ function getQuestionResults() {
     )
 }
 
+export function submitEstimate(request: SubmitEstimateRequest, responseHandler: (response: SubmitEstimateResponse) => void) {
+    post("/api/lobby/v1/" + request.lobbyId + "/submitEstimate",
+        {
+            "accessToken": request.accessToken,
+            "lowerBound": request.lowerBound,
+            "upperBound": request.upperBound
+        },
+        result => {
+            responseHandler(new SubmitEstimateResponse(result.data))
+        }
+    )
+}
+
 // function connect() {
 //     var socket = new SockJS('/chat');
 //     stompClient = Stomp.over(socket);
@@ -92,10 +107,13 @@ export function post(url: string, data: object, onSuccess: (data: any) => void) 
         url: url,
         contentType: 'application/json',
         data: JSON.stringify(data),
-        success: onSuccess,
+        success: data => {
+            console.log(data);
+            onSuccess(data);
+        },
         error: data => {
-            console.log(data.responseJSON.error)
-            alert(data.responseJSON.error.message)
+            console.log(data.responseJSON.error);
+            alert(data.responseJSON.error.message);
         },
         dataType: "json"
     });

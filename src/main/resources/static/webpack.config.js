@@ -13,6 +13,7 @@ module.exports = {
         runtimeChunk: {
             name: (entrypoint) => `runtime~${entrypoint.name}`,
         },
+        minimize: false
     },
     // devtool: 'inline-source-map',
     module: {

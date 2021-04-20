@@ -5,15 +5,42 @@
     <div th:replace="fragments/header :: header"></div>
     <script src="/static/js/runtime~Question.bundle.js"></script>
     <script src="/static/js/Question.bundle.js"></script>
+    <style>
+        #TimeRemaining {
+            height: 14px;
+            border-radius: 7px;
+            font-size: 96px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+            animation: colorchange 60s linear 1s; /* animation-name followed by duration in seconds*/
+            /* you could also use milliseconds (ms) or something like 2.5s */
+            -webkit-animation: colorchange 60s linear 0s alternate; /* Chrome and Safari */
+        }
+        @keyframes colorchange
+        {
+            0%   {background-color: dodgerblue; width: 10em;}
+            50%  {background-color: yellow; width: 5em;}
+            100% {background-color: orangered; width: 0em;}
+        }
+
+        @-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+        {
+            0%   {background-color: dodgerblue;width: 10em;}
+            50%  {background-color: yellow;width: 5em;}
+            100% {background-color: orangered;width: 0em;}
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid w-75 p-3">
-    <h1 class="text-center"><a style="color:#ffffff">PROVIDE</a> <a
+    <h1 id="TitleText" class="text-center"><a style="color:#ffffff">PROVIDE</a> <a
             style="color:#e6640c">ESTIMATE</a>
     </h1>
     <div class="col-md-8 offset-md-2">
-        <br/>
-        <br/>
+        <div class="center-stuff">
+            <div id="TimeRemaining"></div>
+        </div>
         <div class="text-center">
             <h2>How much wood could a wood chuck chuck if a wood chuck could chuck wood?</h2>
         </div>
@@ -38,22 +65,17 @@
             </form>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-3 offset-md-4">
-            <p>*answer indicator*</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 offset-md-4">
-            <p>*countdown timer*</p>
-        </div>
-    </div>
     <br/>
     <form>
         <div class="center-stuff">
-            <button type="button" class="btn btn-primary" onclick="submitEstimate()">Submit Estimate</button>
+            <button id="BtnSubmitEstimate" type="button" class="btn btn-lg btn-primary" style="padding: 1em">Submit Estimate</button>
         </div>
     </form>
+    <div class="col-md-8 offset-md-2" style="padding-top: 2em">
+        <div class="text-center">
+            <h1 id="ScoreField"></h1>
+        </div>
+    </div>
 </div>
 </div>
 </body>

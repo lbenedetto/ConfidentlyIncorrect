@@ -13,6 +13,7 @@ function onJoinLobbyClicked() {
         let accessToken = joinedLobby.accessToken
         sessionStorage.setItem("accessToken", accessToken)
         sessionStorage.setItem("lobbyId", lobbyId)
+        sessionStorage.setItem("isParticipating", isParticipating ? "true" : "false")
         window.location.href = "/lobby"
     })
 }

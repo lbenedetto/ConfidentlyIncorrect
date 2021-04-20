@@ -27,6 +27,7 @@ class ApiResponse<T>(
             message: String?,
             exception: Exception?
         ): ApiResponse<Nothing> {
+            exception?.printStackTrace()
             return ApiResponse(error = ErrorResponse(message, exception?.stackTraceToString()))
         }
 

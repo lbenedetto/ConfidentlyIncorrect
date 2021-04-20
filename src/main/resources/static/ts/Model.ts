@@ -49,8 +49,22 @@ export class QuestionResults {
     }
 }
 
+export class SubmitEstimateRequest {
+    lobbyId: string;
+    accessToken: string;
+    lowerBound: number;
+    upperBound: number;
+
+    constructor(lobbyId: string, accessToken: string, lowerBound: number, upperBound: number) {
+        this.lobbyId = lobbyId
+        this.accessToken = accessToken
+        this.lowerBound = lowerBound
+        this.upperBound = upperBound
+    }
+}
+
 export class SubmitEstimateResponse {
-    score: Score;
+    score: number;
     otherAnswersCount: number;
     otherPlayersCount: number;
 
@@ -113,12 +127,12 @@ export class Question {
 }
 
 export class Score {
-    score: number;
+    value: number;
     playerName: string;
     lowerBound: number;
     upperBound: number;
     constructor(data: any) {
-        this.score = data.score
+        this.value = data.value
         this.playerName = data.playerName
         this.lowerBound = data.lowerBound
         this.upperBound = data.upperBound
