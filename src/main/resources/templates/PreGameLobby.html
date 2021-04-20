@@ -5,6 +5,26 @@
     <div th:replace="fragments/header :: header"></div>
     <script src="/static/js/runtime~PreGameLobby.bundle.js"></script>
     <script src="/static/js/PreGameLobby.bundle.js"></script>
+    <style>
+        #PlayerList li p, #PlayerList li i {
+            min-height: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        #PlayerList li i {
+            font-size:2em;
+            color:white;
+            float: left;
+        }
+        #PlayerList li p {
+            padding-left: 10px;
+        }
+
+        #PlayerList li + li {
+            margin-top: -1rem;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid w-75 p-3">
@@ -15,28 +35,22 @@
         <br/>
         <br/>
         <div class="text-center">
-            <h2 id="DisplayLobbyCode">*queue elevator music*</h2>
-            <p>
-                Waiting for other players...
-            </p>
+            <h2 id="DisplayLobbyCode">XXXXXX</h2>
+            <p id="TxtWaitingIndicator">Waiting for other players... (0/∞)</p>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3 order-md-1 offset-md-4">
-            <ul id="PlayerList" class="list-inline mx-auto justify-content-center">
+        <div>
+            <ul id="PlayerList" class="list-inline">
             </ul>
-        </div>
-        <div class="col-md-3 order-md-2">
-            <p>*progress indicator*</p>
         </div>
     </div>
     <br/>
     <form>
-        <div class="center-stuff" display="none">
-            <button id="BtnStartGame" type="button" class="btn btn-lg btn-primary" style="padding: 1em">Start Game</button>
+        <div class="center-stuff" style="padding-top: 10em;">
+            <button id="BtnStartGame" type="button" class="btn btn-lg btn-success" style="padding: 1em">Start Game</button>
         </div>
     </form>
-</div>
 </div>
 </body>
 </html>

@@ -17,10 +17,10 @@ class NextQuestion(
 ) {
     fun execute(lobbyId: LobbyId, request: NextQuestionRequest) {
         val lobby = lobbyGateway.getById(lobbyId)
-        if (accessTokenGateway.isValid(request.accessToken, lobby.ownerId)) {
+        if (!accessTokenGateway.isValid(request.accessToken, lobby.ownerId)) {
             throw IllegalStateException("You do not have access to do this")
         }
-        if (lobby.questionExpiresAt?.isAfter(LocalDateTime.now()) == true) {
+        if (lobby.questionExpiresAt?.isBefore(LocalDateTime.now()) == true) {
             throw ValidationException("Cannot skip question")
         }
         val nextQuestionId = scoreNotificationService.notifyNextQuestion(lobby.id).nextQuestionId

@@ -3,14 +3,8 @@ import {hostLobby} from "./Api";
 import {CreateLobbyRequest} from "./Model";
 
 $(() => {
-    registerClickHandler();
+    $("#BtnHostLobby").on("click", onHostLobbyClicked);
 });
-
-function registerClickHandler() {
-    $("#BtnHostLobby").on("click", () => {
-        onHostLobbyClicked();
-    });
-}
 
 function onHostLobbyClicked() {
     let request = new CreateLobbyRequest(

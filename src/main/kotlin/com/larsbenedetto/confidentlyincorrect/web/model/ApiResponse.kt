@@ -42,7 +42,7 @@ class ApiResponse<T>(
         }
 
         fun notFound(message: String?): ApiResponse<Nothing> {
-            return error("Entity not found", null)
+            return error(message, null)
         }
     }
 }

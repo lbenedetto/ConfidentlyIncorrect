@@ -12,6 +12,10 @@ h1 {
     color: #e6640c
 }
 
+* {
+    font-family: "Open Sans", sans-serif;
+}
+
 h2 {
     color: white;
 }

@@ -28,7 +28,7 @@ class ApiExceptionHandler(
     @ResponseStatus(HttpStatus.NOT_FOUND)
     private fun handle(e: EntityLookupFailedException): ApiResponse<Nothing> {
         logger.warn(e)
-        return ApiResponse.notFound(e.message)
+        return ApiResponse.error(e)
     }
 
     @ExceptionHandler

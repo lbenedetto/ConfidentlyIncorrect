@@ -35,14 +35,13 @@ export function joinLobby(lobbyId: string, playerName: string, isParticipating: 
     )
 }
 
-function nextQuestion() {
-    let lobbyId = sessionStorage.getItem("lobbyId")
-    let accessToken = sessionStorage.getItem("accessToken")
+export function nextQuestion(lobbyId: string, accessToken: string, responseHandler: () => void) {
     post("/api/lobby/v1/" + lobbyId + "/nextQuestion",
         {"accessToken": accessToken},
         result => {
-            // There is no response, instead client will receive a NextQuestionNotification
+            // There is nothing in the response, instead client will receive a NextQuestionNotification
             // at which point we should navigate
+            responseHandler()
         }
     )
 }
@@ -94,6 +93,10 @@ export function post(url: string, data: object, onSuccess: (data: any) => void) 
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: onSuccess,
+        error: data => {
+            console.log(data.responseJSON.error)
+            alert(data.responseJSON.error.message)
+        },
         dataType: "json"
     });
 }

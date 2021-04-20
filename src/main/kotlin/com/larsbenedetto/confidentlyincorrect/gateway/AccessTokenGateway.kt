@@ -10,8 +10,8 @@ import java.util.*
 
 @Repository
 interface AccessTokenRepository : CrudRepository<TblAccessToken, Long> {
-    fun findByTokenAndPlayerId(token: AccessToken, playerId: PlayerId): Optional<TblAccessToken>
-    fun findByToken(token: AccessToken): TblAccessToken
+    fun findByTokenAndPlayerId(token: String, playerId: Long): Optional<TblAccessToken>
+    fun findByToken(token: String): TblAccessToken
 }
 
 @Service
@@ -29,11 +29,11 @@ class AccessTokenGateway(
     }
 
     fun isValid(token: AccessToken, playerId: PlayerId): Boolean {
-        return accessTokenRepository.findByTokenAndPlayerId(token, playerId)
+        return accessTokenRepository.findByTokenAndPlayerId(token.value, playerId.value)
             .isPresent
     }
 
     fun getPlayerIdByAccessToken(token: AccessToken): PlayerId {
-        return PlayerId(accessTokenRepository.findByToken(token).playerId)
+        return PlayerId(accessTokenRepository.findByToken(token.value).playerId)
     }
 }
