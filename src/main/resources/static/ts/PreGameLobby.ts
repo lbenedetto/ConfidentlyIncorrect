@@ -3,7 +3,6 @@ import * as $ from "jquery";
 import {LobbyDetails} from "./Model";
 
 $(() => {
-    console.log('document ready');
     if (sessionStorage.getItem("isHosting") === "true") {
         $("#BtnStartGame").show()
     } else {
@@ -17,6 +16,7 @@ function showLobbyDetails(lobbyDetails: LobbyDetails) {
     let playerList = $("#PlayerList")
     $("#DisplayLobbyCode").text(lobbyDetails.lobby.id)
     lobbyDetails.players.forEach(player => {
+        //TODO: differentiate between participating and spectating
         playerList.append("<li>" + player.name + "</li>")
     })
 

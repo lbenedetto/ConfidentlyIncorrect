@@ -1,13 +1,19 @@
 import * as $ from "jquery";
-import {CreateLobbyResponse, JoinLobbyResponse, LobbyDetails, QuestionResults} from "./Model"
+import {
+    CreateLobbyRequest,
+    CreateLobbyResponse,
+    JoinLobbyResponse,
+    LobbyDetails,
+    QuestionResults
+} from "./Model"
 
-export function hostLobby(playerName: string, capacity: string, questionLimit: string, resultHandler: (createdLobby: CreateLobbyResponse) => void) {
+export function hostLobby(request: CreateLobbyRequest, resultHandler: (createdLobby: CreateLobbyResponse) => void) {
     post("/api/lobby/v1/",
         {
-            "hostName": playerName,
-            "isParticipating": true,
-            "capacity": capacity,
-            "questionLimit": questionLimit
+            "hostName": request.playerName,
+            "isParticipating": request.isParticipating,
+            "capacity": request.capacity,
+            "questionLimit": request.questionLimit
         },
         result => {
             let createdLobby = new CreateLobbyResponse(result.data)
@@ -16,9 +22,12 @@ export function hostLobby(playerName: string, capacity: string, questionLimit: s
     )
 }
 
-export function joinLobby(playerName: string, lobbyId: string, resultHandler: (joinedLobby: JoinLobbyResponse) => void) {
+export function joinLobby(lobbyId: string, playerName: string, isParticipating: boolean, resultHandler: (joinedLobby: JoinLobbyResponse) => void) {
     post("/api/lobby/v1/" + lobbyId + "/join",
-        {"playerName": playerName},
+        {
+            "playerName": playerName,
+            "isParticipating": isParticipating
+        },
         result => {
             let joinedLobby = new JoinLobbyResponse(result)
             resultHandler(joinedLobby)

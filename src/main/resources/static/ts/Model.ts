@@ -1,3 +1,17 @@
+export class CreateLobbyRequest {
+    playerName: string;
+    isParticipating: boolean;
+    capacity: string;
+    questionLimit: string;
+
+    constructor(playerName: string, isParticipating: boolean, capacity: string, questionLimit: string) {
+        this.playerName = playerName;
+        this.isParticipating = isParticipating;
+        this.capacity = capacity != "" ? capacity : "10";
+        this.questionLimit = questionLimit != "" ? questionLimit : "20";
+    }
+}
+
 export class CreateLobbyResponse {
     lobbyId: string;
     accessToken: string;
