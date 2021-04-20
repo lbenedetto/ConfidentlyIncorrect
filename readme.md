@@ -3,7 +3,7 @@
 In order to edit and compile the ts files, you must install some npm packages
 Install
 ```bash
-cd src/main/resources/static/js
+cd src/main/resources/static/
 sudo npm install -g typescript
 npm install webpack-cli --save-dev
 npm install webpack --save-dev
