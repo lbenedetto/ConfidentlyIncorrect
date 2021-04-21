@@ -3,7 +3,7 @@ package com.larsbenedetto.confidentlyincorrect.usecase
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.gateway.AccessTokenGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.LobbyGateway
-import com.larsbenedetto.confidentlyincorrect.usecase.service.NotificationService
+import com.larsbenedetto.confidentlyincorrect.usecase.service.NotificationController
 import com.larsbenedetto.confidentlyincorrect.web.model.NextQuestionRequest
 import com.larsbenedetto.confidentlyincorrect.web.model.ValidationException
 import org.springframework.stereotype.Service
@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 @Service
 class NextQuestion(
     val lobbyGateway: LobbyGateway,
-    val scoreNotificationService: NotificationService,
+    val scoreNotificationController: NotificationController,
     val accessTokenGateway: AccessTokenGateway
 ) {
     fun execute(lobbyId: LobbyId, request: NextQuestionRequest) {
@@ -23,7 +23,7 @@ class NextQuestion(
         if (lobby.questionExpiresAt?.isBefore(LocalDateTime.now()) == true) {
             throw ValidationException("Cannot skip question")
         }
-        val nextQuestionId = scoreNotificationService.notifyNextQuestion(lobby.id).nextQuestionId
+        val nextQuestionId = scoreNotificationController.notifyNextQuestion(lobby.id).nextQuestionId
         lobby.questionId = nextQuestionId
         lobby.questionExpiresAt = LocalDateTime.now().plusMinutes(1);
         lobbyGateway.save(lobby)

@@ -3,7 +3,7 @@ package com.larsbenedetto.confidentlyincorrect.usecase
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.entity.Estimate
 import com.larsbenedetto.confidentlyincorrect.gateway.*
-import com.larsbenedetto.confidentlyincorrect.usecase.service.NotificationService
+import com.larsbenedetto.confidentlyincorrect.usecase.service.NotificationController
 import com.larsbenedetto.confidentlyincorrect.usecase.service.ScoringService
 import com.larsbenedetto.confidentlyincorrect.web.model.SubmitEstimateRequest
 import com.larsbenedetto.confidentlyincorrect.web.model.SubmitEstimateResponse
@@ -18,7 +18,7 @@ class SubmitEstimate(
     val estimateGateway: EstimateGateway,
     val lobbyGateway: LobbyGateway,
     val scoringService: ScoringService,
-    val notificationService: NotificationService,
+    val notificationController: NotificationController,
     val accessTokenGateway: AccessTokenGateway
 ) {
     fun execute(lobbyId: LobbyId, request: SubmitEstimateRequest): SubmitEstimateResponse {
@@ -61,7 +61,7 @@ class SubmitEstimate(
             )
         )
 
-        val notification = notificationService.notifyPlayerAnswered(lobbyId, question.id)
+        val notification = notificationController.notifyPlayerAnswered(lobbyId, question.id)
         return SubmitEstimateResponse(
             score = score,
             otherPlayersCount = notification.playerCount,

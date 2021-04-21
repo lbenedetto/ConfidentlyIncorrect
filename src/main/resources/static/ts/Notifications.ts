@@ -18,23 +18,26 @@ export function connect(onConnect: () => void) {
 export function subscribeToPlayerJoined(notificationHandler: (playerJoined: PlayerJoinedNotification) => void) {
     let lobbyId = sessionStorage.getItem("lobbyId")
     let endpoint = `/topic/lobby/${lobbyId}/playerJoined`;
-    stompClient.subscribe(endpoint, playerJoined => {
-        notificationHandler(new PlayerJoinedNotification(playerJoined));
+    stompClient.subscribe(endpoint, callback => {
+        console.log(callback)
+        notificationHandler(new PlayerJoinedNotification(JSON.parse(callback.body)));
     });
 }
 
 export function subscribeToPlayerAnswered(notificationHandler: (playerAnswered: PlayerAnsweredNotification) => void) {
     let lobbyId = sessionStorage.getItem("lobbyId")
     let endpoint = `/topic/lobby/${lobbyId}/playerAnswered`;
-    stompClient.subscribe(endpoint, playerAnswered => {
-        notificationHandler(new PlayerAnsweredNotification(playerAnswered));
+    stompClient.subscribe(endpoint, callback => {
+        console.log(callback)
+        notificationHandler(new PlayerAnsweredNotification(JSON.parse(callback.body)));
     });
 }
 
 export function subscribeToNextQuestion(notificationHandler: (nextQuestion: NextQuestionNotification) => void) {
     let lobbyId = sessionStorage.getItem("lobbyId")
     let endpoint = `/topic/lobby/${lobbyId}/nextQuestion`;
-    stompClient.subscribe(endpoint, nextQuestion => {
-        notificationHandler(new NextQuestionNotification(nextQuestion));
+    stompClient.subscribe(endpoint, callback => {
+        console.log(callback)
+        notificationHandler(new NextQuestionNotification(JSON.parse(callback.body)));
     });
 }

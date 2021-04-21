@@ -14,6 +14,7 @@ $(() => {
     getLobbyDetails(showLobbyDetails)
 
     Notifications.connect(() => {
+        console.log("Connection successful, subscribing");
         Notifications.subscribeToPlayerJoined(onPlayerJoined);
         Notifications.subscribeToNextQuestion(onNextQuestion);
     })
@@ -25,8 +26,8 @@ function onPlayerJoined(playerJoined: PlayerJoinedNotification) {
 }
 
 function onNextQuestion(nextQuestion: NextQuestionNotification) {
-    sessionStorage.putItem("questionText", nextQuestion.nextQuestionText)
-    sessionStorage.putItem("questionId", nextQuestion.nextQuestionId)
+    sessionStorage.setItem("questionText", nextQuestion.nextQuestionText)
+    sessionStorage.setItem("questionId", nextQuestion.nextQuestionId.toString())
     window.location.href = "/question"
 }
 

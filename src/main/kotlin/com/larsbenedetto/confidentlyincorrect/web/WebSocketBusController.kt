@@ -16,21 +16,21 @@ class WebSocketBusController() {
 
     @SubscribeMapping(NextQuestionNotification.TOPIC_NAME)
     fun nextQuestion(
-        @DestinationVariable lobbyId: LobbyId
+        @DestinationVariable("lobbyId") lobbyId: LobbyId
     ): ResponseEntity<ApiResponse<EmptyResponse>> {
         return ApiResponse.ok()
     }
 
     @SubscribeMapping(PlayerAnsweredNotification.TOPIC_NAME)
     fun playerAnswered(
-        @DestinationVariable lobbyId: LobbyId
+        @DestinationVariable("lobbyId") lobbyId: LobbyId
     ): ResponseEntity<ApiResponse<EmptyResponse>> {
         return ApiResponse.ok()
     }
 
     @SubscribeMapping(PlayerJoinedNotification.TOPIC_NAME)
     fun playerJoined(
-        @DestinationVariable lobbyId: LobbyId
+        @DestinationVariable("lobbyId") lobbyId: LobbyId
     ): ResponseEntity<ApiResponse<EmptyResponse>> {
         return ApiResponse.ok()
     }
