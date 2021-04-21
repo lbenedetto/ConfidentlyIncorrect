@@ -9,8 +9,6 @@ import com.larsbenedetto.confidentlyincorrect.domain.messages.PlayerJoinedNotifi
 import com.larsbenedetto.confidentlyincorrect.gateway.EstimateGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.PlayerGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.QuestionGateway
-import org.springframework.messaging.handler.annotation.DestinationVariable
-import org.springframework.messaging.handler.annotation.SendTo
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Service
 

@@ -31,7 +31,7 @@ export function joinLobby(lobbyId: string, playerName: string, isParticipating: 
             "isParticipating": isParticipating
         },
         result => {
-            let joinedLobby = new JoinLobbyResponse(result)
+            let joinedLobby = new JoinLobbyResponse(result.data)
             resultHandler(joinedLobby)
         }
     )

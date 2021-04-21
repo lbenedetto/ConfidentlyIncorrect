@@ -1,7 +1,8 @@
 import {submitEstimate} from "./Api";
-import {SubmitEstimateRequest} from "./Model";
+import {PlayerAnsweredNotification, SubmitEstimateRequest} from "./Model";
 import * as $ from "jquery";
 import {interpolateColor} from "./ColorInterpolation";
+import * as Notifications from "./Notifications";
 
 $(() => {
     let btnSubmitEstimate = $("#BtnSubmitEstimate");
@@ -13,11 +14,29 @@ $(() => {
         btnSubmitEstimate.on("click", onSubmitEstimateClicked);
     }
     $('#QuestionField').text(sessionStorage.getItem("questionText"));
-    window.setTimeout(onTimeRunsOut, 60_000);
+    window.setTimeout(goToResults, 60_000);
 });
 
-function onTimeRunsOut() {
+function goToResults() {
     window.location.href = "/results"
+}
+
+function goToResultsWithDelay() {
+    window.setTimeout(() => {
+        window.location.href = "/results"
+    }, 3000);
+}
+
+Notifications.connect(() => {
+    console.log("Connection successful, subscribing");
+    Notifications.subscribeToPlayerAnswered(onPlayerAnswered);
+})
+
+function onPlayerAnswered(playerAnswered: PlayerAnsweredNotification) {
+    if(playerAnswered.playerCount == playerAnswered.answerCount) {
+        goToResultsWithDelay();
+    }
+    //TODO: Maybe update some indicator of how many other players have answered?
 }
 
 function onSubmitEstimateClicked() {
@@ -44,6 +63,12 @@ function onSubmitEstimateClicked() {
         $("#TitleText")
             .html(getExplanationText(response.score))
             .css("color", color);
+
+        if(response.otherAnswersCount == response.otherPlayersCount) {
+            goToResultsWithDelay();
+        }
+
+        //TODO: Maybe update some indicator of how many other players have answered?
     })
 
     function getColor(score: number): string {
