@@ -5,6 +5,6 @@ data class PlayerAnsweredNotification(
     val answerCount: Int
 ) {
     companion object {
-        const val TOPIC_NAME = "/topics/{lobbyId}/playerAnswered"
+        const val TOPIC_NAME = "/topic/lobby/{lobbyId}/playerAnswered"
     }
 }

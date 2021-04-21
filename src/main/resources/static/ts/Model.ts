@@ -138,3 +138,37 @@ export class Score {
         this.upperBound = data.upperBound
     }
 }
+
+export class PlayerJoinedNotification {
+    player: Player;
+    playerCount: number;
+    playerLimit: number;
+
+    constructor(data: any) {
+        this.player = new Player(data.player);
+        this.playerCount = data.playerCount
+        this.playerLimit = data.playerLimit
+    }
+}
+
+
+export class PlayerAnsweredNotification {
+    playerCount: number;
+    answerCount: number;
+
+    constructor(data: any) {
+        this.playerCount = data.playerCount
+        this.answerCount = data.answerCount
+    }
+}
+
+
+export class NextQuestionNotification {
+    nextQuestionId: number;
+    nextQuestionText: string;
+
+    constructor(data: any) {
+        this.nextQuestionId = data.nextQuestionId
+        this.nextQuestionText = data.nextQuestionText
+    }
+}

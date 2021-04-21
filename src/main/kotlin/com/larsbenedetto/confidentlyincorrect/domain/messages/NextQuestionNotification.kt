@@ -7,6 +7,6 @@ data class NextQuestionNotification(
     val nextQuestionText: String,
 ) {
     companion object {
-        const val TOPIC_NAME = "/topics/{lobbyId}/nextQuestion"
+        const val TOPIC_NAME = "/topic/lobby/{lobbyId}/nextQuestion"
     }
 }

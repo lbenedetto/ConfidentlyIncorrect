@@ -12,6 +12,7 @@ $(() => {
     } else {
         btnSubmitEstimate.on("click", onSubmitEstimateClicked);
     }
+    $('#QuestionField').text(sessionStorage.getItem("questionText"));
     window.setTimeout(onTimeRunsOut, 60_000);
 });
 
