@@ -17,6 +17,8 @@ data class TblQuestion(
 
     var answer: Double,
 
+    var explanation: String,
+
     @Enumerated
     var category: QuestionCategory,
 

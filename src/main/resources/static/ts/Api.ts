@@ -25,7 +25,7 @@ export function hostLobby(request: CreateLobbyRequest, resultHandler: (createdLo
 }
 
 export function joinLobby(lobbyId: string, playerName: string, isParticipating: boolean, resultHandler: (joinedLobby: JoinLobbyResponse) => void) {
-    post("/api/lobby/v1/" + lobbyId + "/join",
+    post(`/api/lobby/v1/${lobbyId}/join`,
         {
             "playerName": playerName,
             "isParticipating": isParticipating
@@ -38,7 +38,7 @@ export function joinLobby(lobbyId: string, playerName: string, isParticipating: 
 }
 
 export function nextQuestion(lobbyId: string, accessToken: string, responseHandler: () => void) {
-    post("/api/lobby/v1/" + lobbyId + "/nextQuestion",
+    post(`/api/lobby/v1/${lobbyId}/nextQuestion`,
         {"accessToken": accessToken},
         result => {
             // There is nothing in the response, instead client will receive a NextQuestionNotification
@@ -50,7 +50,7 @@ export function nextQuestion(lobbyId: string, accessToken: string, responseHandl
 
 export function getLobbyDetails(resultHandler: (lobbyDetails: LobbyDetails) => void) {
     let lobbyId = sessionStorage.getItem("lobbyId")
-    post("/api/lobby/v1/" + lobbyId + "/",
+    post(`/api/lobby/v1/${lobbyId}/`,
         {},
         result => {
             let lobbyDetails = new LobbyDetails(result.data)
@@ -59,14 +59,14 @@ export function getLobbyDetails(resultHandler: (lobbyDetails: LobbyDetails) => v
     )
 }
 
-function getQuestionResults() {
+export function getQuestionResults(resultHandler: (result: QuestionResults) => void) {
     let lobbyId = sessionStorage.getItem("lobbyId")
-    let questionId = 1 // TODO: Get this from session
-    post("/api/lobby/v1/" + lobbyId + "/results/" + questionId + "/",
+    let questionId = sessionStorage.getItem("questionId")
+    post(`/api/lobby/v1/${lobbyId}/results/${questionId}/`,
         {},
         result => {
             let questionResults = new QuestionResults(result.data)
-            // TODO: Display question results
+            resultHandler(questionResults)
         }
     )
 }

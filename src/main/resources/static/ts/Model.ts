@@ -115,6 +115,7 @@ export class Question {
     scoringType: string;
     text: string;
     answer: string;
+    explanation: string;
     category: string;
 
     constructor(data: any) {
@@ -122,17 +123,20 @@ export class Question {
         this.scoringType = data.scoringType
         this.text = data.text
         this.answer = data.answer
+        this.explanation = data.explanation
         this.category = data.category
     }
 }
 
 export class Score {
     value: number;
+    cumulativeScore: number;
     playerName: string;
     lowerBound: number;
     upperBound: number;
     constructor(data: any) {
         this.value = data.value
+        this.cumulativeScore = data.cumulativeScore
         this.playerName = data.playerName
         this.lowerBound = data.lowerBound
         this.upperBound = data.upperBound

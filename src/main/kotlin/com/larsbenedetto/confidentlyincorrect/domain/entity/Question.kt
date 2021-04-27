@@ -9,5 +9,6 @@ data class Question(
     var scoringType: ScoringType,
     var text: String,
     var answer: Double,
+    var explanation: String,
     var category: QuestionCategory,
 )

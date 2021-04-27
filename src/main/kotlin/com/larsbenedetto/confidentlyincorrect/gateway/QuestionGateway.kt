@@ -1,12 +1,10 @@
 package com.larsbenedetto.confidentlyincorrect.gateway
 
-import com.larsbenedetto.confidentlyincorrect.ConfidentlyIncorrectApplication
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
 import com.larsbenedetto.confidentlyincorrect.domain.entity.Question
 import com.larsbenedetto.confidentlyincorrect.gateway.model.TblQuestion
 import com.larsbenedetto.confidentlyincorrect.web.model.EntityLookupFailedException
-import org.springframework.boot.runApplication
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
@@ -45,6 +43,7 @@ class QuestionGateway(
             scoringType = tbl.scoringType,
             text = tbl.text,
             answer = tbl.answer,
+            explanation = tbl.explanation,
             category = tbl.category,
         )
     }

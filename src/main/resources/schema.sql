@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS TblPlayer
 (
     id              BIGINT(20)   NOT NULL AUTO_INCREMENT,
     name            VARCHAR(100) NOT NULL,
-    score           INT(11)      NOT NULL,
+    score           DOUBLE       NOT NULL,
     isParticipating TINYINT(1)   NOT NULL,
     lobbyId         VARCHAR(6)   NULL DEFAULT NULL,
     PRIMARY KEY (id),
@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS TblQuestion
     id          BIGINT(20) NOT NULL AUTO_INCREMENT,
     scoringType INT(11)    NOT NULL,
     text        TEXT       NOT NULL,
+    explanation TEXT       NOT NULL,
     answer      DOUBLE     NOT NULL,
     category    INT(11)    NOT NULL,
     PRIMARY KEY (id),

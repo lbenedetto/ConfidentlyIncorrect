@@ -8,7 +8,7 @@ interface Identity<T> : Serializable {
     val value: T
 }
 
-interface LongIdentity: Identity<Long>
+interface LongIdentity: Identity<Long> {}
 
 interface StringIdentity: Identity<String> {
     companion object {
@@ -17,16 +17,22 @@ interface StringIdentity: Identity<String> {
 }
 
 @Embeddable
-data class EstimateId(override val value: Long) : LongIdentity
+data class EstimateId(override val value: Long) : LongIdentity {
+    constructor(value: String) : this(value.toLong())
+}
 
 @Embeddable
 data class LobbyId(override val value: String) : StringIdentity
 
 @Embeddable
-data class PlayerId(override val value: Long) : LongIdentity
+data class PlayerId(override val value: Long) : LongIdentity {
+    constructor(value: String) : this(value.toLong())
+}
 
 @Embeddable
-data class QuestionId(override var value: Long): LongIdentity
+data class QuestionId(override var value: Long): LongIdentity {
+    constructor(value: String) : this(value.toLong())
+}
 
 @Embeddable
 data class AccessToken(override val value: String) : StringIdentity
