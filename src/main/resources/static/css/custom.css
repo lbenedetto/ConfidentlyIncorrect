@@ -33,6 +33,10 @@ p, label {
     border-radius: 25px;
 }
 
+button {
+    padding: 1em;
+}
+
 .center-stuff {
     display: flex;
     justify-content: center;

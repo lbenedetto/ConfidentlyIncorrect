@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 @Service
 class NextQuestion(
     val lobbyGateway: LobbyGateway,
-    val scoreNotificationController: NotificationController,
+    val notificationController: NotificationController,
     val accessTokenGateway: AccessTokenGateway
 ) {
     fun execute(lobbyId: LobbyId, request: NextQuestionRequest) {
@@ -20,10 +20,12 @@ class NextQuestion(
         if (!accessTokenGateway.isValid(request.accessToken, lobby.ownerId)) {
             throw IllegalStateException("You do not have access to do this")
         }
-        if (lobby.questionExpiresAt?.isBefore(LocalDateTime.now()) == true) {
-            throw ValidationException("Cannot skip question")
+        if (lobby.questionCount == lobby.questionLimit) {
+            notificationController.notifyGameOver(lobbyId)
+            return
         }
-        val nextQuestionId = scoreNotificationController.notifyNextQuestion(lobby.id).nextQuestionId
+        val nextQuestionId = notificationController.notifyNextQuestion(lobby.id).nextQuestionId
+        lobby.questionCount++
         lobby.questionId = nextQuestionId
         lobby.questionExpiresAt = LocalDateTime.now().plusMinutes(1);
         lobbyGateway.save(lobby)

@@ -32,10 +32,7 @@ function onNextQuestion(nextQuestion: NextQuestionNotification) {
 }
 
 function onStartGameClicked() {
-    let lobbyId = sessionStorage.getItem("lobbyId")
-    let accessToken = sessionStorage.getItem("accessToken")
-    nextQuestion(lobbyId, accessToken, () => {
-    })
+    nextQuestion();
 }
 
 function showLobbyDetails(lobbyDetails: LobbyDetails) {

@@ -37,13 +37,14 @@ export function joinLobby(lobbyId: string, playerName: string, isParticipating: 
     )
 }
 
-export function nextQuestion(lobbyId: string, accessToken: string, responseHandler: () => void) {
+export function nextQuestion() {
+    let lobbyId = sessionStorage.getItem("lobbyId")
+    let accessToken = sessionStorage.getItem("accessToken")
     post(`/api/lobby/v1/${lobbyId}/nextQuestion`,
         {"accessToken": accessToken},
         result => {
             // There is nothing in the response, instead client will receive a NextQuestionNotification
             // at which point we should navigate
-            responseHandler()
         }
     )
 }

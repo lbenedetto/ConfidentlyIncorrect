@@ -14,6 +14,7 @@ function onJoinLobbyClicked() {
         sessionStorage.setItem("accessToken", accessToken)
         sessionStorage.setItem("lobbyId", lobbyId)
         sessionStorage.setItem("isParticipating", isParticipating ? "true" : "false")
+        sessionStorage.setItem("isHosting", "false")
         window.location.href = "/lobby"
     })
 }

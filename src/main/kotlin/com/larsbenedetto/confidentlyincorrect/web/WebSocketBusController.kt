@@ -1,6 +1,7 @@
 package com.larsbenedetto.confidentlyincorrect.web
 
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
+import com.larsbenedetto.confidentlyincorrect.domain.messages.GameOverNotification
 import com.larsbenedetto.confidentlyincorrect.domain.messages.NextQuestionNotification
 import com.larsbenedetto.confidentlyincorrect.domain.messages.PlayerAnsweredNotification
 import com.larsbenedetto.confidentlyincorrect.domain.messages.PlayerJoinedNotification
@@ -30,6 +31,13 @@ class WebSocketBusController() {
 
     @SubscribeMapping(PlayerJoinedNotification.TOPIC_NAME)
     fun playerJoined(
+        @DestinationVariable("lobbyId") lobbyId: LobbyId
+    ): ResponseEntity<ApiResponse<EmptyResponse>> {
+        return ApiResponse.ok()
+    }
+
+    @SubscribeMapping(GameOverNotification.TOPIC_NAME)
+    fun gameOver(
         @DestinationVariable("lobbyId") lobbyId: LobbyId
     ): ResponseEntity<ApiResponse<EmptyResponse>> {
         return ApiResponse.ok()

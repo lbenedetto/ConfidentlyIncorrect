@@ -1,5 +1,6 @@
 import {Client, IFrame, Stomp} from "@stomp/stompjs";
 import {
+    GameOverNotification,
     NextQuestionNotification,
     PlayerAnsweredNotification,
     PlayerJoinedNotification
@@ -39,5 +40,14 @@ export function subscribeToNextQuestion(notificationHandler: (nextQuestion: Next
     stompClient.subscribe(endpoint, callback => {
         console.log(callback)
         notificationHandler(new NextQuestionNotification(JSON.parse(callback.body)));
+    });
+}
+
+export function subscribeToGameOver(notificationHandler: (gameOver: GameOverNotification) => void) {
+    let lobbyId = sessionStorage.getItem("lobbyId")
+    let endpoint = `/topic/lobby/${lobbyId}/gameOver`;
+    stompClient.subscribe(endpoint, callback => {
+        console.log(callback)
+        notificationHandler(new GameOverNotification(JSON.parse(callback.body)));
     });
 }

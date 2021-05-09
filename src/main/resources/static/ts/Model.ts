@@ -41,10 +41,12 @@ export class LobbyDetails {
 
 export class QuestionResults {
     question: Question;
+    gameOver: boolean;
     scores: Array<Score>;
 
     constructor(data: any) {
         this.question = new Question(data.question)
+        this.gameOver = data.gameOver;
         this.scores = data.scores.map((scoreData: any) => new Score(scoreData))
     }
 }
@@ -174,5 +176,10 @@ export class NextQuestionNotification {
     constructor(data: any) {
         this.nextQuestionId = data.nextQuestionId
         this.nextQuestionText = data.nextQuestionText
+    }
+}
+
+export class GameOverNotification {
+    constructor(data: any) {
     }
 }

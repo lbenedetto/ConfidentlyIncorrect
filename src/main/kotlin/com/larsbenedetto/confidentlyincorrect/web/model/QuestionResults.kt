@@ -5,5 +5,6 @@ import com.larsbenedetto.confidentlyincorrect.domain.entity.Question
 
 data class QuestionResults(
     val question: Question,
+    val gameOver: Boolean,
     val scores: List<Score>
 )

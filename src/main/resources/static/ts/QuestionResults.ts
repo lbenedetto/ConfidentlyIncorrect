@@ -1,7 +1,7 @@
 import * as $ from "jquery";
-import {getQuestionResults} from "./Api";
+import {getQuestionResults, nextQuestion} from "./Api";
 import * as Notifications from "./Notifications";
-import {NextQuestionNotification, QuestionResults, Score} from "./Model";
+import {GameOverNotification, NextQuestionNotification, QuestionResults, Score} from "./Model";
 import * as ScoreDisplay from "./ScoreDisplay";
 
 $(() => {
@@ -17,6 +17,7 @@ $(() => {
     Notifications.connect(() => {
         console.log("Connection successful, subscribing");
         Notifications.subscribeToNextQuestion(onNextQuestion);
+        Notifications.subscribeToGameOver(onGameOver);
     })
 })
 
@@ -26,12 +27,19 @@ function onNextQuestion(nextQuestion: NextQuestionNotification) {
     window.location.href = "/question"
 }
 
-function onNextQuestionClicked() {
+function onGameOver(gameOver: GameOverNotification) {
+    window.location.href = "/gameOver"
+}
 
+function onNextQuestionClicked() {
+    nextQuestion();
 }
 
 function showQuestionResults(questionResults: QuestionResults) {
     $("#AnswerField").text(questionResults.question.explanation)
+    if (questionResults.gameOver) {
+        $("#BtnNextQuestion").text("Show Final Results")
+    }
 
     let playerList = $("#ScoreList")
     questionResults.scores.forEach(score => {
