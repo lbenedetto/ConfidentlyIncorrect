@@ -5,27 +5,6 @@
     <div th:replace="fragments/header :: header"></div>
     <script src="/static/js/runtime~QuestionResults.bundle.js"></script>
     <script src="/static/js/QuestionResults.bundle.js"></script>
-    <style>
-        td {
-            height: 90px;
-            vertical-align: middle;
-        }
-
-        td p {
-            /* Override a bootstrap default */
-            margin-bottom: 0;
-        }
-
-        td i {
-            font-size: 3em !important;
-            float: left;
-            padding-right: 5px;
-        }
-
-        th {
-            text-align: left;
-        }
-    </style>
 </head>
 <body>
 <div class="container-fluid w-75 p-3">
@@ -40,7 +19,6 @@
                 <p>Here are the scores and estimates from this round</p>
             </div>
         </div>
-
         <table id="ScoreList" style="margin-top: 2em;">
             <tr>
                 <th style="width: 2em"></th>
@@ -51,7 +29,6 @@
                 <th><p>Upper Bound</p></th>
             </tr>
         </table>
-
         <br/>
         <form>
             <div class="center-stuff" style="padding-top: 2em">
