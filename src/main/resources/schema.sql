@@ -24,12 +24,12 @@ CREATE TABLE IF NOT EXISTS TblPlayer
 
 CREATE TABLE IF NOT EXISTS TblQuestion
 (
-    id          BIGINT(20) NOT NULL AUTO_INCREMENT,
-    scoringType INT(11)    NOT NULL,
-    text        TEXT       NOT NULL,
-    explanation TEXT       NOT NULL,
-    answer      DOUBLE     NOT NULL,
-    category    INT(11)    NOT NULL,
+    id          BIGINT(20)   NOT NULL AUTO_INCREMENT,
+    scoringType INT(11)      NOT NULL,
+    text        TEXT         NOT NULL,
+    explanation TEXT         NOT NULL,
+    answer      DOUBLE       NOT NULL,
+    category    VARCHAR(256) NOT NULL,
     PRIMARY KEY (id),
     INDEX idx_category (category)
 );

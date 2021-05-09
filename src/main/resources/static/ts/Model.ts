@@ -54,10 +54,10 @@ export class QuestionResults {
 export class SubmitEstimateRequest {
     lobbyId: string;
     accessToken: string;
-    lowerBound: number;
-    upperBound: number;
+    lowerBound: string;
+    upperBound: string;
 
-    constructor(lobbyId: string, accessToken: string, lowerBound: number, upperBound: number) {
+    constructor(lobbyId: string, accessToken: string, lowerBound: string, upperBound: string) {
         this.lobbyId = lobbyId
         this.accessToken = accessToken
         this.lowerBound = lowerBound

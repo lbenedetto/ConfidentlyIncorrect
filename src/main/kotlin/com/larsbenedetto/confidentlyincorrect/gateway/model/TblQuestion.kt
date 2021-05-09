@@ -19,7 +19,7 @@ data class TblQuestion(
 
     var explanation: String,
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     var category: QuestionCategory,
 
 )

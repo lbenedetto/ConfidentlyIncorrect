@@ -40,11 +40,14 @@ class SubmitEstimate(
         estimateGateway.findPlayersEstimateForQuestionInLobby(lobby.id, question.id, player.id!!)
             .ifPresent { throw ValidationException("Cannot submit multiple estimates") }
 
+        val lowerBound = parseValue(request.lowerBound)
+        val upperBound = parseValue(request.upperBound)
+
         val score = scoringService.calculateScore(
             scoringType = question.scoringType,
             correctAnswer = question.answer,
-            lowerBound = request.lowerBound,
-            upperBound = request.upperBound
+            lowerBound = lowerBound,
+            upperBound = upperBound
         )
         player.score += score
         playerGateway.save(player)
@@ -55,8 +58,8 @@ class SubmitEstimate(
                 lobbyId = lobby.id,
                 playerId = player.id!!,
                 questionId = question.id,
-                lowerBound = request.lowerBound,
-                upperBound = request.upperBound,
+                lowerBound = lowerBound,
+                upperBound = upperBound,
                 score = score
             )
         )
@@ -67,5 +70,21 @@ class SubmitEstimate(
             otherPlayersCount = notification.playerCount,
             otherAnswersCount = notification.answerCount
         )
+    }
+
+    private fun parseValue(value: String) : Double {
+        val trimmedValue = value.trim()
+        when(true) {
+            trimmedValue.matches("\\d+k$".toRegex()) -> {
+                return value.substring(0, value.length - 2).toInt() * 1_000.0
+            }
+            trimmedValue.matches("\\d+m$".toRegex()) -> {
+                return value.substring(0, value.length - 2).toInt() * 1_000_000.0
+            }
+            trimmedValue.matches("\\d+b$".toRegex()) -> {
+                return value.substring(0, value.length - 2).toInt() * 1_000_000_000.0
+            }
+        }
+        return value.toDouble()
     }
 }

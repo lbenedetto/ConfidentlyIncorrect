@@ -44,8 +44,8 @@ function onSubmitEstimateClicked() {
     let accessToken = sessionStorage.getItem("accessToken")
     let lowerBoundField = $("#LowerBoundField");
     let upperBoundField = $("#UpperBoundField");
-    let lowerBound = lowerBoundField.val() as number;
-    let upperBound = upperBoundField.val() as number;
+    let lowerBound = lowerBoundField.val() as string;
+    let upperBound = upperBoundField.val() as string;
 
     let request = new SubmitEstimateRequest(lobbyId, accessToken, lowerBound, upperBound)
     submitEstimate(request, response => {

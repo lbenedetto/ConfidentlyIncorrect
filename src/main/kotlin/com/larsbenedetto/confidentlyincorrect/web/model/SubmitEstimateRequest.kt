@@ -4,6 +4,6 @@ import com.larsbenedetto.confidentlyincorrect.domain.AccessToken
 
 data class SubmitEstimateRequest(
     val accessToken: AccessToken,
-    val lowerBound: Double,
-    val upperBound: Double
+    val lowerBound: String,
+    val upperBound: String
 )
