@@ -2,6 +2,10 @@ package com.larsbenedetto.confidentlyincorrect.domain
 
 enum class QuestionCategory {
     TECH,
-    FOOD_WASTE,
-    JOKE
+    JOKE,
+    SPACE,
+    GENERAL,
+    GEOGRAPHY,
+    LITERATURE,
+    HISTORY,
 }
