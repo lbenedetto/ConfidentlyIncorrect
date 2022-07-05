@@ -34,15 +34,15 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("mysql:mysql-connector-java")
 
-    implementation(group = "com.fasterxml.jackson.core", name = "jackson-annotations", version = "2.11.4")
-    implementation(group = "com.fasterxml.jackson.core", name = "jackson-databind", version = "2.11.4")
+    implementation(group = "com.fasterxml.jackson.core", name = "jackson-annotations")
+    implementation(group = "com.fasterxml.jackson.core", name = "jackson-databind")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }
 
