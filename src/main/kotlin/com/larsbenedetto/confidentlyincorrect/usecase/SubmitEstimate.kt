@@ -76,13 +76,13 @@ class SubmitEstimate(
         val trimmedValue = value.trim()
 
         if (trimmedValue.matches("\\d+k$".toRegex())) {
-            return value.substring(0, value.length - 2).toInt() * 1_000.0
+            return value.substring(0, value.length - 1).toInt() * 1_000.0
         }
         if (trimmedValue.matches("\\d+m$".toRegex())) {
-            return value.substring(0, value.length - 2).toInt() * 1_000_000.0
+            return value.substring(0, value.length - 1).toInt() * 1_000_000.0
         }
         if (trimmedValue.matches("\\d+b$".toRegex())) {
-            return value.substring(0, value.length - 2).toInt() * 1_000_000_000.0
+            return value.substring(0, value.length - 1).toInt() * 1_000_000_000.0
         }
         return value.toDouble()
     }

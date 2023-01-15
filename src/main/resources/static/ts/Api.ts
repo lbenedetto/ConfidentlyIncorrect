@@ -63,7 +63,7 @@ export function getLobbyDetails(resultHandler: (lobbyDetails: LobbyDetails) => v
 export function getQuestionResults(resultHandler: (result: QuestionResults) => void) {
     let lobbyId = sessionStorage.getItem("lobbyId")
     let questionId = sessionStorage.getItem("questionId")
-    post(`/api/lobby/v1/${lobbyId}/results/${questionId}/`,
+    post(`/api/lobby/v1/${lobbyId}/results/${questionId}`,
         {},
         result => {
             let questionResults = new QuestionResults(result.data)

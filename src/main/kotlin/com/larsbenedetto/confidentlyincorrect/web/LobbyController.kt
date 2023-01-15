@@ -3,7 +3,6 @@ package com.larsbenedetto.confidentlyincorrect.web
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
 import com.larsbenedetto.confidentlyincorrect.usecase.*
-import com.larsbenedetto.confidentlyincorrect.web.model.LobbyDetails
 import com.larsbenedetto.confidentlyincorrect.web.model.*
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -35,7 +34,7 @@ class LobbyController(
         return ApiResponse.ok(response)
     }
 
-    @PostMapping("/{lobbyId}/")
+    @PostMapping("/{lobbyId}")
     fun getLobby(
         @PathVariable("lobbyId") lobbyId: LobbyId
     ): ResponseEntity<ApiResponse<LobbyDetails>> {
