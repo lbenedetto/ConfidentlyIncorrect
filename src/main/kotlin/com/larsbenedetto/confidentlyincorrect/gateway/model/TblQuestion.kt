@@ -3,7 +3,7 @@ package com.larsbenedetto.confidentlyincorrect.gateway.model
 import com.larsbenedetto.confidentlyincorrect.domain.QuestionCategory
 import com.larsbenedetto.confidentlyincorrect.domain.ScoringType
 import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 data class TblQuestion(

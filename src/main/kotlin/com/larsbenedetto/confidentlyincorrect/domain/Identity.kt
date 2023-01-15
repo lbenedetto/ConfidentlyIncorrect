@@ -1,8 +1,9 @@
 package com.larsbenedetto.confidentlyincorrect.domain
 
-import net.bytebuddy.utility.RandomString
+import com.larsbenedetto.confidentlyincorrect.util.RandomStringGenerator
+import jakarta.persistence.Basic
 import java.io.Serializable
-import javax.persistence.Embeddable
+import jakarta.persistence.Embeddable
 
 interface Identity<T> : Serializable {
     val value: T
@@ -10,22 +11,20 @@ interface Identity<T> : Serializable {
 
 interface LongIdentity: Identity<Long> {}
 
-interface StringIdentity: Identity<String> {
-    companion object {
-        fun generateIdValue(length: Int) = RandomString.make(length).toUpperCase()
-    }
-}
+interface StringIdentity: Identity<String> {}
 
 @Embeddable
-data class EstimateId(override val value: Long) : LongIdentity {
+data class EstimateId(@field:Basic override val value: Long) : LongIdentity {
     constructor(value: String) : this(value.toLong())
 }
 
 @Embeddable
-data class LobbyId(override val value: String) : StringIdentity
+data class LobbyId(@field:Basic override val value: String) : StringIdentity {
+    constructor() : this(RandomStringGenerator.generate(6, "ABCDEFGHIJKLMNOPQRSTUV"))
+}
 
 @Embeddable
-data class PlayerId(override val value: Long) : LongIdentity {
+data class PlayerId(@field:Basic override val value: Long) : LongIdentity {
     constructor(value: String) : this(value.toLong())
 }
 
@@ -35,4 +34,4 @@ data class QuestionId(override var value: Long): LongIdentity {
 }
 
 @Embeddable
-data class AccessToken(override val value: String) : StringIdentity
+data class AccessToken(@field:Basic override val value: String) : StringIdentity

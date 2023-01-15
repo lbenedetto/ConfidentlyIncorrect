@@ -1,0 +1,32 @@
+rootProject.name = "confidentlyincorrect"
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        create("libs") {
+            version("spring-boot", "3.0.1")
+
+
+            library("spring-boot-starter-data-jpa", "org.springframework.boot", "spring-boot-starter-data-jpa").versionRef("spring-boot")
+            library("spring-boot-starter-web", "org.springframework.boot", "spring-boot-starter-web").versionRef("spring-boot")
+            library("spring-boot-starter-websocket", "org.springframework.boot", "spring-boot-starter-websocket").versionRef("spring-boot")
+            library("spring-boot-starter-thymeleaf", "org.springframework.boot", "spring-boot-starter-thymeleaf").versionRef("spring-boot")
+            library("spring-boot-starter-test", "org.springframework.boot", "spring-boot-starter-test").versionRef("spring-boot")
+            library("spring-boot-devtools", "org.springframework.boot", "spring-boot-devtools").versionRef("spring-boot")
+
+
+            version("thymeleaf-layout-dialect", "3.1.0")
+            version("jackson-module-kotlin", "2.14.1")
+            version("kotlin-reflect", "1.8.0")
+            version("kotlin-stdlib-jdk8", "1.8.0")
+            version("mysql-connector-java", "8.0.31")
+
+            library("thymeleaf-layout-dialect", "nz.net.ultraq.thymeleaf", "thymeleaf-layout-dialect").versionRef("thymeleaf-layout-dialect")
+            library("jackson-module-kotlin", "com.fasterxml.jackson.module", "jackson-module-kotlin").versionRef("jackson-module-kotlin")
+            library("jackson-annotations", "com.fasterxml.jackson.core", "jackson-annotations").versionRef("jackson-module-kotlin")
+            library("jackson-databind", "com.fasterxml.jackson.core", "jackson-databind").versionRef("jackson-module-kotlin")
+            library("kotlin-reflect", "org.jetbrains.kotlin", "kotlin-reflect").versionRef("kotlin-reflect")
+            library("kotlin-stdlib-jdk8", "org.jetbrains.kotlin", "kotlin-stdlib-jdk8").versionRef("kotlin-stdlib-jdk8")
+            library("mysql-connector-java", "mysql", "mysql-connector-java").versionRef("mysql-connector-java")
+        }
+    }
+}

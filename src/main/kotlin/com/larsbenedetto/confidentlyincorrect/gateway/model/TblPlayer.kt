@@ -1,7 +1,7 @@
 package com.larsbenedetto.confidentlyincorrect.gateway.model
 
 import org.hibernate.annotations.DynamicUpdate
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 @DynamicUpdate

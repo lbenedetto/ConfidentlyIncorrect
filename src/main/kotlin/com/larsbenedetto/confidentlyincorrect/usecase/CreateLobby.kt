@@ -18,7 +18,7 @@ class CreateLobby(
     fun execute(request: CreateLobbyRequest): CreateLobbyResponse {
         val created = createPlayer.execute(request.hostName, request.isParticipating)
 
-        val lobbyId = LobbyId(StringIdentity.generateIdValue(6))
+        val lobbyId = LobbyId()
         var lobby = Lobby(
             id = lobbyId,
             ownerId = created.player.id!!,

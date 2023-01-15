@@ -2,8 +2,8 @@ package com.larsbenedetto.confidentlyincorrect.gateway.model
 
 import org.hibernate.annotations.DynamicUpdate
 import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.Id
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
 
 @Entity
 @DynamicUpdate

@@ -12,21 +12,19 @@ import java.util.*
 
 @Repository
 interface EstimateRepository : CrudRepository<TblEstimate, Long> {
-    @Query(
-        "SELECT e FROM TblEstimate e" +
-                " WHERE e.lobbyId = :lobbyId" +
-                " AND e.questionId = :questionId" +
-                " ORDER BY e.score DESC"
-    )
+    @Query("""SELECT e FROM TblEstimate e
+        WHERE e.lobbyId = :lobbyId
+        AND e.questionId = :questionId
+        ORDER BY e.score DESC
+    """)
     fun findAllByLobbyIdAndQuestionId(
         @Param("lobbyId") lobbyId: String,
         @Param("questionId") questionId: Long
     ): List<TblEstimate>
 
-    @Query(
-        "SELECT DISTINCT(e.questionId) FROM TblEstimate e" +
-                " WHERE e.lobbyId = :lobbyId"
-    )
+    @Query("""SELECT DISTINCT(e.questionId) FROM TblEstimate e
+        WHERE e.lobbyId = :lobbyId
+    """)
     fun isQuestionUniqueToLobby(
         @Param("lobbyId") lobbyId: String
     ): List<Long>
