@@ -1,0 +1,34 @@
+version: '3.8'
+
+networks:
+  default:
+    name: confidently_incorrect_network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.32.99.0/24
+
+services:
+  dockerhost:
+    image: "qoomon/docker-host:3.0.8"
+    cap_add: [ 'NET_ADMIN', 'NET_RAW' ]
+    restart: on-failure
+
+  mysql:
+    image: "mysql:8.0.31"
+    env_file: .env.mysql
+    command: [
+      "mysqld",
+      "--max_allowed_packet=1073741824",
+      "--explicit_defaults_for_timestamp=1",
+      "--character-set-server=utf8mb4",
+      "--collation-server=utf8mb4_unicode_520_ci",
+      "--default-authentication-plugin=mysql_native_password"
+    ]
+    ports:
+      - "8002:3306"
+    volumes:
+      - ${CURRENT_DIR}/docker/mysql:/docker-entrypoint-initdb.d
+    tmpfs:
+      - /var/lib/mysql
