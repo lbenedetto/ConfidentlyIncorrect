@@ -53,9 +53,9 @@ function getScoreHtml(score: Score) {
     return `
 <tr>
     <td><i class="material-icons" style="color:${color}">${icon}</i></td>
+    <td><p>${score.playerName}</p></td>
     <td><p>${score.value.toFixed(2)}</p></td>
     <td><p>${score.cumulativeScore.toFixed(2)}</p></td>
-    <td><p>${score.playerName}</p></td>
     <td><p>${score.lowerBound}</p></td>
     <td><p>${score.upperBound}</p></td>
 </tr>
