@@ -1,4 +1,3 @@
-# data.sql is executed during startup
 INSERT IGNORE INTO TblQuestion (answer, category, scoringType, text, explanation)
 VALUES (21105172, 'TECH', 1,
     'How many questions are there on Stack Overflow',
