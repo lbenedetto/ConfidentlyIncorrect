@@ -1,4 +1,4 @@
-package com.larsbenedetto.confidentlyincorrect.web.model
+package com.larsbenedetto.confidentlyincorrect.web.lobby.model
 
 data class JoinLobbyRequest(
     val playerName: String,

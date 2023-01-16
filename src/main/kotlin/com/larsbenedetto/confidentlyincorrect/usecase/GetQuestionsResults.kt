@@ -9,7 +9,7 @@ import com.larsbenedetto.confidentlyincorrect.gateway.EstimateGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.LobbyGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.PlayerGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.QuestionGateway
-import com.larsbenedetto.confidentlyincorrect.web.model.QuestionResults
+import com.larsbenedetto.confidentlyincorrect.web.lobby.model.QuestionResults
 import com.larsbenedetto.confidentlyincorrect.web.model.ValidationException
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime

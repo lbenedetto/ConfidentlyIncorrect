@@ -3,7 +3,7 @@ package com.larsbenedetto.confidentlyincorrect.usecase
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.gateway.LobbyGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.PlayerGateway
-import com.larsbenedetto.confidentlyincorrect.web.model.LobbyDetails
+import com.larsbenedetto.confidentlyincorrect.web.lobby.model.LobbyDetails
 import org.springframework.stereotype.Service
 
 @Service

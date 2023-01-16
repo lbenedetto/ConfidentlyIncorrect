@@ -1,7 +1,8 @@
 import {getLobbyDetails, nextQuestion} from "./Api"
 import * as $ from "jquery";
-import {LobbyDetails, NextQuestionNotification, Player, PlayerJoinedNotification} from "./Model";
-import * as Notifications from "./Notifications";
+import {LobbyDetails, NextQuestionEvent, Player, PlayerJoinedEvent} from "./Model";
+
+import * as Events from "./Events";
 
 $(() => {
     let startGameButton = $("#BtnStartGame");
@@ -13,19 +14,19 @@ $(() => {
     }
     getLobbyDetails(showLobbyDetails)
 
-    Notifications.connect(() => {
+    Events.connect(() => {
         console.log("Connection successful, subscribing");
-        Notifications.subscribeToPlayerJoined(onPlayerJoined);
-        Notifications.subscribeToNextQuestion(onNextQuestion);
+        Events.subscribeToPlayerJoined(onPlayerJoined);
+        Events.subscribeToNextQuestion(onNextQuestion);
     })
 })
 
-function onPlayerJoined(playerJoined: PlayerJoinedNotification) {
+function onPlayerJoined(playerJoined: PlayerJoinedEvent) {
     $("#PlayerList").append(getPlayerHtml(playerJoined.player));
     updatePlayerCount(playerJoined.playerCount, playerJoined.playerLimit)
 }
 
-function onNextQuestion(nextQuestion: NextQuestionNotification) {
+function onNextQuestion(nextQuestion: NextQuestionEvent) {
     sessionStorage.setItem("questionText", nextQuestion.nextQuestionText)
     sessionStorage.setItem("questionId", nextQuestion.nextQuestionId.toString())
     window.location.href = "question"

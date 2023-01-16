@@ -31,7 +31,7 @@ dependencies {
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.spring.boot.starter.thymeleaf)
     implementation(libs.spring.boot.starter.web)
-    implementation(libs.spring.boot.starter.websocket)
+    implementation(libs.spring.webmvc)
     implementation(libs.thymeleaf.layout.dialect)
 
     runtimeOnly(libs.mysql.connector.java)

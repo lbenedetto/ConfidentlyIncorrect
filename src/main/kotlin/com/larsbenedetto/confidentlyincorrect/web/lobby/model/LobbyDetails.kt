@@ -1,4 +1,4 @@
-package com.larsbenedetto.confidentlyincorrect.web.model
+package com.larsbenedetto.confidentlyincorrect.web.lobby.model
 
 import com.larsbenedetto.confidentlyincorrect.domain.entity.Lobby
 import com.larsbenedetto.confidentlyincorrect.domain.entity.Player

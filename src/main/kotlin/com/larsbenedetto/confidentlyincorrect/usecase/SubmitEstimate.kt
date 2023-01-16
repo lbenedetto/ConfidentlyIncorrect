@@ -2,11 +2,12 @@ package com.larsbenedetto.confidentlyincorrect.usecase
 
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.entity.Estimate
+import com.larsbenedetto.confidentlyincorrect.domain.events.PlayerAnsweredEvent
 import com.larsbenedetto.confidentlyincorrect.gateway.*
-import com.larsbenedetto.confidentlyincorrect.usecase.service.NotificationController
+import com.larsbenedetto.confidentlyincorrect.usecase.service.EventDispatcher
 import com.larsbenedetto.confidentlyincorrect.usecase.service.ScoringService
-import com.larsbenedetto.confidentlyincorrect.web.model.SubmitEstimateRequest
-import com.larsbenedetto.confidentlyincorrect.web.model.SubmitEstimateResponse
+import com.larsbenedetto.confidentlyincorrect.web.lobby.model.SubmitEstimateRequest
+import com.larsbenedetto.confidentlyincorrect.web.lobby.model.SubmitEstimateResponse
 import com.larsbenedetto.confidentlyincorrect.web.model.ValidationException
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -18,7 +19,7 @@ class SubmitEstimate(
     val estimateGateway: EstimateGateway,
     val lobbyGateway: LobbyGateway,
     val scoringService: ScoringService,
-    val notificationController: NotificationController,
+    val eventDispatcher: EventDispatcher,
     val accessTokenGateway: AccessTokenGateway
 ) {
     fun execute(lobbyId: LobbyId, request: SubmitEstimateRequest): SubmitEstimateResponse {
@@ -64,7 +65,15 @@ class SubmitEstimate(
             )
         )
 
-        val notification = notificationController.notifyPlayerAnswered(lobbyId, question.id)
+        val players = playerGateway.findParticipatingByLobbyId(lobbyId)
+        val estimates = estimateGateway.findByLobbyAndQuestion(lobbyId, question.id)
+        val notification = eventDispatcher.notify(
+            lobbyId = lobbyId,
+            event = PlayerAnsweredEvent(
+                players.size,
+                estimates.size,
+            )
+        )
         return SubmitEstimateResponse(
             score = score,
             otherPlayersCount = notification.playerCount,

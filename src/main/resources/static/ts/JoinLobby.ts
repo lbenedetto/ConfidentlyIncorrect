@@ -10,8 +10,8 @@ function onJoinLobbyClicked() {
     let lobbyId = $("#InputLobbyCode").val() as string;
     let isParticipating = $("#SwitchParticipating").is(':checked');
     joinLobby(lobbyId, playerName, isParticipating, joinedLobby => {
-        let accessToken = joinedLobby.accessToken
-        sessionStorage.setItem("accessToken", accessToken)
+        sessionStorage.setItem("playerId", joinedLobby.playerId)
+        sessionStorage.setItem("accessToken", joinedLobby.accessToken)
         sessionStorage.setItem("lobbyId", lobbyId)
         sessionStorage.setItem("isParticipating", isParticipating ? "true" : "false")
         sessionStorage.setItem("isHosting", "false")

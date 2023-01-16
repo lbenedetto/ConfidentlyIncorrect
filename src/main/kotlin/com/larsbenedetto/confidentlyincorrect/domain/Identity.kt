@@ -2,8 +2,8 @@ package com.larsbenedetto.confidentlyincorrect.domain
 
 import com.larsbenedetto.confidentlyincorrect.util.RandomStringGenerator
 import jakarta.persistence.Basic
-import java.io.Serializable
 import jakarta.persistence.Embeddable
+import java.io.Serializable
 
 interface Identity<T> : Serializable {
     val value: T
@@ -35,3 +35,5 @@ data class QuestionId(override var value: Long): LongIdentity {
 
 @Embeddable
 data class AccessToken(@field:Basic override val value: String) : StringIdentity
+
+data class SubscriberId(override val value: String): StringIdentity

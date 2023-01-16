@@ -1,11 +1,12 @@
 package com.larsbenedetto.confidentlyincorrect.usecase
 
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
+import com.larsbenedetto.confidentlyincorrect.domain.events.PlayerJoinedEvent
 import com.larsbenedetto.confidentlyincorrect.gateway.LobbyGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.PlayerGateway
-import com.larsbenedetto.confidentlyincorrect.usecase.service.NotificationController
-import com.larsbenedetto.confidentlyincorrect.web.model.JoinLobbyRequest
-import com.larsbenedetto.confidentlyincorrect.web.model.JoinLobbyResponse
+import com.larsbenedetto.confidentlyincorrect.usecase.service.EventDispatcher
+import com.larsbenedetto.confidentlyincorrect.web.lobby.model.JoinLobbyRequest
+import com.larsbenedetto.confidentlyincorrect.web.lobby.model.JoinLobbyResponse
 import com.larsbenedetto.confidentlyincorrect.web.model.ValidationException
 import org.springframework.stereotype.Service
 
@@ -14,7 +15,7 @@ class JoinLobby(
     val createPlayer: CreatePlayer,
     val playerGateway: PlayerGateway,
     val lobbyGateway: LobbyGateway,
-    val notificationController: NotificationController,
+    val eventDispatcher: EventDispatcher,
 ) {
     fun execute(lobbyId: LobbyId, request: JoinLobbyRequest): JoinLobbyResponse {
         val lobby = lobbyGateway.getById(lobbyId)
@@ -27,13 +28,18 @@ class JoinLobby(
         created.player.lobbyId = lobbyId
         playerGateway.save(created.player)
 
-        notificationController.notifyPlayerJoined(
+        eventDispatcher.notify(
             lobbyId = lobbyId,
-            player = created.player,
-            playerCount = players.size + 1,
-            playerLimit = lobby.capacity
+            event = PlayerJoinedEvent(
+                player = created.player,
+                playerCount = players.size + 1,
+                playerLimit = lobby.capacity
+            )
         )
 
-        return JoinLobbyResponse(created.accessToken)
+        return JoinLobbyResponse(
+            created.player.id!!,
+            created.accessToken,
+        )
     }
 }

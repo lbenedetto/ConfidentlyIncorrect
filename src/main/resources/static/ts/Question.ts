@@ -1,7 +1,7 @@
 import {submitEstimate} from "./Api";
-import {PlayerAnsweredNotification, SubmitEstimateRequest} from "./Model";
+import {PlayerAnsweredEvent, SubmitEstimateRequest} from "./Model";
 import * as $ from "jquery";
-import * as Notifications from "./Notifications";
+import * as Events from "./Events";
 import * as ScoreDisplay from "./ScoreDisplay";
 
 $(() => {
@@ -27,12 +27,12 @@ function goToResultsWithDelay() {
     }, 3000);
 }
 
-Notifications.connect(() => {
+Events.connect(() => {
     console.log("Connection successful, subscribing");
-    Notifications.subscribeToPlayerAnswered(onPlayerAnswered);
+    Events.subscribeToPlayerAnswered(onPlayerAnswered);
 })
 
-function onPlayerAnswered(playerAnswered: PlayerAnsweredNotification) {
+function onPlayerAnswered(playerAnswered: PlayerAnsweredEvent) {
     if(playerAnswered.playerCount == playerAnswered.answerCount) {
         goToResultsWithDelay();
     }

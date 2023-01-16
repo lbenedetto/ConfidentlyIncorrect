@@ -1,12 +1,19 @@
-package com.larsbenedetto.confidentlyincorrect.web
+package com.larsbenedetto.confidentlyincorrect.web.lobby
 
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
+import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
 import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
+import com.larsbenedetto.confidentlyincorrect.domain.events.Subscriber
 import com.larsbenedetto.confidentlyincorrect.usecase.*
+import com.larsbenedetto.confidentlyincorrect.usecase.service.EventDispatcher
+import com.larsbenedetto.confidentlyincorrect.web.lobby.model.*
 import com.larsbenedetto.confidentlyincorrect.web.model.*
+import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
+import java.time.Duration
 
 @Controller
 @RequestMapping("api/lobby/v1")
@@ -16,7 +23,8 @@ class LobbyController(
     val getQuestionsResults: GetQuestionsResults,
     val joinLobby: JoinLobby,
     val nextQuestion: NextQuestion,
-    val submitEstimate: SubmitEstimate
+    val submitEstimate: SubmitEstimate,
+    val eventDispatcher: EventDispatcher
 ) {
     @PostMapping("/")
     fun createLobby(
@@ -65,5 +73,29 @@ class LobbyController(
     ): ResponseEntity<ApiResponse<SubmitEstimateResponse>> {
         val score = submitEstimate.execute(lobbyId, request)
         return ApiResponse.ok(score)
+    }
+
+    @GetMapping("/{lobbyId}/subscribe/{playerId}")
+    fun subscribe(
+        @PathVariable("lobbyId") lobbyId: LobbyId,
+        @PathVariable("playerId") playerId: PlayerId,
+        response: HttpServletResponse
+    ): SseEmitter {
+        val emitter = SseEmitter(Duration.ofHours(1).toMillis())
+        emitter.onCompletion {
+        }
+        emitter.onTimeout {
+            eventDispatcher.unsubscribe(playerId)
+        }
+        emitter.onError {
+            eventDispatcher.unsubscribe(playerId)
+        }
+        val subscriber = Subscriber(playerId, emitter)
+
+        eventDispatcher.subscribe(lobbyId, subscriber)
+
+        // Fix to allow SSE through nginx
+        response.addHeader("X-Accel-Buffering", "no")
+        return emitter
     }
 }

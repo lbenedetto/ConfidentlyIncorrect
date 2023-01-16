@@ -13,19 +13,23 @@ export class CreateLobbyRequest {
 }
 
 export class CreateLobbyResponse {
+    playerId: string;
     lobbyId: string;
     accessToken: string;
 
     constructor(data: any) {
+        this.playerId = data.playerId
         this.lobbyId = data.lobbyId
         this.accessToken = data.accessToken
     }
 }
 
 export class JoinLobbyResponse {
+    playerId: string;
     accessToken: string;
 
     constructor(data: any) {
+        this.playerId = data.playerId
         this.accessToken = data.accessToken
     }
 }
@@ -145,7 +149,8 @@ export class Score {
     }
 }
 
-export class PlayerJoinedNotification {
+
+export class PlayerJoinedEvent {
     player: Player;
     playerCount: number;
     playerLimit: number;
@@ -158,7 +163,7 @@ export class PlayerJoinedNotification {
 }
 
 
-export class PlayerAnsweredNotification {
+export class PlayerAnsweredEvent {
     playerCount: number;
     answerCount: number;
 
@@ -169,7 +174,7 @@ export class PlayerAnsweredNotification {
 }
 
 
-export class NextQuestionNotification {
+export class NextQuestionEvent {
     nextQuestionId: number;
     nextQuestionText: string;
 
@@ -179,7 +184,7 @@ export class NextQuestionNotification {
     }
 }
 
-export class GameOverNotification {
+export class GameOverEvent {
     constructor(data: any) {
     }
 }

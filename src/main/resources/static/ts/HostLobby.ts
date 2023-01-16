@@ -14,10 +14,9 @@ function onHostLobbyClicked() {
         $("#InputQuestionLimitField").val() as string
     )
     hostLobby(request, createdLobby => {
-        let accessToken = createdLobby.accessToken
-        let lobbyId = createdLobby.lobbyId
-        sessionStorage.setItem("accessToken", accessToken)
-        sessionStorage.setItem("lobbyId", lobbyId)
+        sessionStorage.setItem("playerId", createdLobby.playerId)
+        sessionStorage.setItem("accessToken", createdLobby.accessToken)
+        sessionStorage.setItem("lobbyId", createdLobby.lobbyId)
         sessionStorage.setItem("isHosting", "true")
         sessionStorage.setItem("isParticipating", request.isParticipating ? "true" : "false")
         window.location.href = "lobby"

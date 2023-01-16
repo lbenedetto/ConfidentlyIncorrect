@@ -1,12 +1,11 @@
 package com.larsbenedetto.confidentlyincorrect.usecase
 
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
-import com.larsbenedetto.confidentlyincorrect.domain.StringIdentity
 import com.larsbenedetto.confidentlyincorrect.domain.entity.Lobby
 import com.larsbenedetto.confidentlyincorrect.gateway.LobbyGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.PlayerGateway
-import com.larsbenedetto.confidentlyincorrect.web.model.CreateLobbyRequest
-import com.larsbenedetto.confidentlyincorrect.web.model.CreateLobbyResponse
+import com.larsbenedetto.confidentlyincorrect.web.lobby.model.CreateLobbyRequest
+import com.larsbenedetto.confidentlyincorrect.web.lobby.model.CreateLobbyResponse
 import org.springframework.stereotype.Service
 
 @Service
@@ -30,6 +29,6 @@ class CreateLobby(
         created.player.lobbyId = lobbyId
         playerGateway.save(created.player)
 
-        return CreateLobbyResponse(lobby.id, created.accessToken)
+        return CreateLobbyResponse(created.player.id!!, lobby.id, created.accessToken)
     }
 }

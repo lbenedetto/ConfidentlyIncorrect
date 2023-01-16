@@ -1,18 +1,21 @@
 package com.larsbenedetto.confidentlyincorrect.usecase
 
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
+import com.larsbenedetto.confidentlyincorrect.domain.events.GameOverEvent
+import com.larsbenedetto.confidentlyincorrect.domain.events.NextQuestionEvent
 import com.larsbenedetto.confidentlyincorrect.gateway.AccessTokenGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.LobbyGateway
-import com.larsbenedetto.confidentlyincorrect.usecase.service.NotificationController
-import com.larsbenedetto.confidentlyincorrect.web.model.NextQuestionRequest
-import com.larsbenedetto.confidentlyincorrect.web.model.ValidationException
+import com.larsbenedetto.confidentlyincorrect.gateway.QuestionGateway
+import com.larsbenedetto.confidentlyincorrect.usecase.service.EventDispatcher
+import com.larsbenedetto.confidentlyincorrect.web.lobby.model.NextQuestionRequest
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
 @Service
 class NextQuestion(
     val lobbyGateway: LobbyGateway,
-    val notificationController: NotificationController,
+    val questionGateway: QuestionGateway,
+    val eventDispatcher: EventDispatcher,
     val accessTokenGateway: AccessTokenGateway
 ) {
     fun execute(lobbyId: LobbyId, request: NextQuestionRequest) {
@@ -21,12 +24,19 @@ class NextQuestion(
             throw IllegalStateException("You do not have access to do this")
         }
         if (lobby.questionCount == lobby.questionLimit) {
-            notificationController.notifyGameOver(lobbyId)
+            eventDispatcher.notify(lobbyId, GameOverEvent())
             return
         }
-        val nextQuestionId = notificationController.notifyNextQuestion(lobby.id).nextQuestionId
+        val nextQuestion = questionGateway.getRandomQuestion(lobbyId)
+        val nextQuestionEvent = eventDispatcher.notify(
+            lobbyId = lobbyId,
+            event = NextQuestionEvent(
+                nextQuestionId = nextQuestion.id,
+                nextQuestionText = nextQuestion.text,
+            )
+        )
         lobby.questionCount++
-        lobby.questionId = nextQuestionId
+        lobby.questionId = nextQuestionEvent.nextQuestionId
         lobby.questionExpiresAt = LocalDateTime.now().plusMinutes(1);
         lobbyGateway.save(lobby)
     }

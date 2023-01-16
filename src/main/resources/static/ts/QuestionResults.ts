@@ -1,7 +1,7 @@
 import * as $ from "jquery";
 import {getQuestionResults, nextQuestion} from "./Api";
-import * as Notifications from "./Notifications";
-import {GameOverNotification, NextQuestionNotification, QuestionResults, Score} from "./Model";
+import * as Events from "./Events";
+import {GameOverEvent, NextQuestionEvent, QuestionResults, Score} from "./Model";
 import * as ScoreDisplay from "./ScoreDisplay";
 
 $(() => {
@@ -14,20 +14,20 @@ $(() => {
     }
     getQuestionResults(showQuestionResults)
 
-    Notifications.connect(() => {
+    Events.connect(() => {
         console.log("Connection successful, subscribing");
-        Notifications.subscribeToNextQuestion(onNextQuestion);
-        Notifications.subscribeToGameOver(onGameOver);
+        Events.subscribeToNextQuestion(onNextQuestion);
+        Events.subscribeToGameOver(onGameOver);
     })
 })
 
-function onNextQuestion(nextQuestion: NextQuestionNotification) {
+function onNextQuestion(nextQuestion: NextQuestionEvent) {
     sessionStorage.setItem("questionText", nextQuestion.nextQuestionText)
     sessionStorage.setItem("questionId", nextQuestion.nextQuestionId.toString())
     window.location.href = "question"
 }
 
-function onGameOver(gameOver: GameOverNotification) {
+function onGameOver(gameOver: GameOverEvent) {
     window.location.href = "gameOver"
 }
 
