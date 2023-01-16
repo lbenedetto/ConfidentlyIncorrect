@@ -10,10 +10,6 @@ networks:
         - subnet: 172.32.99.0/24
 
 services:
-  dockerhost:
-    image: "qoomon/docker-host:3.0.8"
-    cap_add: [ 'NET_ADMIN', 'NET_RAW' ]
-    restart: on-failure
 
   mysql:
     image: "mysql:8.0.31"

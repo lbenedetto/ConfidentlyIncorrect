@@ -7,7 +7,7 @@ export class CreateLobbyRequest {
     constructor(playerName: string, isParticipating: boolean, capacity: string, questionLimit: string) {
         this.playerName = playerName;
         this.isParticipating = isParticipating;
-        this.capacity = capacity != "" ? capacity : null;
+        this.capacity = capacity != "" ? capacity : "10";
         this.questionLimit = questionLimit != "" ? questionLimit : "20";
     }
 }

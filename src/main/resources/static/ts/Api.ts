@@ -51,7 +51,7 @@ export function nextQuestion() {
 
 export function getLobbyDetails(resultHandler: (lobbyDetails: LobbyDetails) => void) {
     let lobbyId = sessionStorage.getItem("lobbyId")
-    post(`/api/lobby/v1/${lobbyId}/`,
+    post(`/api/lobby/v1/${lobbyId}`,
         {},
         result => {
             let lobbyDetails = new LobbyDetails(result.data)
