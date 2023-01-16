@@ -18,12 +18,12 @@ $(() => {
 });
 
 function goToResults() {
-    window.location.href = "/results"
+    window.location.href = "results"
 }
 
 function goToResultsWithDelay() {
     window.setTimeout(() => {
-        window.location.href = "/results"
+        window.location.href = "results"
     }, 3000);
 }
 

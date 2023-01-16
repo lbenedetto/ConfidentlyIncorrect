@@ -10,7 +10,7 @@ import {
 } from "./Model"
 
 export function hostLobby(request: CreateLobbyRequest, resultHandler: (createdLobby: CreateLobbyResponse) => void) {
-    post("/api/lobby/v1/",
+    post("/confidentlyincorrect/api/lobby/v1/",
         {
             "hostName": request.playerName,
             "isParticipating": request.isParticipating,
@@ -25,7 +25,7 @@ export function hostLobby(request: CreateLobbyRequest, resultHandler: (createdLo
 }
 
 export function joinLobby(lobbyId: string, playerName: string, isParticipating: boolean, resultHandler: (joinedLobby: JoinLobbyResponse) => void) {
-    post(`/api/lobby/v1/${lobbyId}/join`,
+    post(`/confidentlyincorrect/api/lobby/v1/${lobbyId}/join`,
         {
             "playerName": playerName,
             "isParticipating": isParticipating
@@ -40,7 +40,7 @@ export function joinLobby(lobbyId: string, playerName: string, isParticipating: 
 export function nextQuestion() {
     let lobbyId = sessionStorage.getItem("lobbyId")
     let accessToken = sessionStorage.getItem("accessToken")
-    post(`/api/lobby/v1/${lobbyId}/nextQuestion`,
+    post(`/confidentlyincorrect/api/lobby/v1/${lobbyId}/nextQuestion`,
         {"accessToken": accessToken},
         result => {
             // There is nothing in the response, instead client will receive a NextQuestionNotification
@@ -51,7 +51,7 @@ export function nextQuestion() {
 
 export function getLobbyDetails(resultHandler: (lobbyDetails: LobbyDetails) => void) {
     let lobbyId = sessionStorage.getItem("lobbyId")
-    post(`/api/lobby/v1/${lobbyId}`,
+    post(`/confidentlyincorrect/api/lobby/v1/${lobbyId}`,
         {},
         result => {
             let lobbyDetails = new LobbyDetails(result.data)
@@ -63,7 +63,7 @@ export function getLobbyDetails(resultHandler: (lobbyDetails: LobbyDetails) => v
 export function getQuestionResults(resultHandler: (result: QuestionResults) => void) {
     let lobbyId = sessionStorage.getItem("lobbyId")
     let questionId = sessionStorage.getItem("questionId")
-    post(`/api/lobby/v1/${lobbyId}/results/${questionId}`,
+    post(`/confidentlyincorrect/api/lobby/v1/${lobbyId}/results/${questionId}`,
         {},
         result => {
             let questionResults = new QuestionResults(result.data)
@@ -73,7 +73,7 @@ export function getQuestionResults(resultHandler: (result: QuestionResults) => v
 }
 
 export function submitEstimate(request: SubmitEstimateRequest, responseHandler: (response: SubmitEstimateResponse) => void) {
-    post("/api/lobby/v1/" + request.lobbyId + "/submitEstimate",
+    post("/confidentlyincorrect/api/lobby/v1/" + request.lobbyId + "/submitEstimate",
         {
             "accessToken": request.accessToken,
             "lowerBound": request.lowerBound,
@@ -86,7 +86,7 @@ export function submitEstimate(request: SubmitEstimateRequest, responseHandler: 
 }
 
 function leaveLobby() {
-    window.location.href = "/";
+    window.location.href = "";
 }
 
 export function post(url: string, data: object, onSuccess: (data: any) => void) {

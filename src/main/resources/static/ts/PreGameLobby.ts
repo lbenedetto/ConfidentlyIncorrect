@@ -28,7 +28,7 @@ function onPlayerJoined(playerJoined: PlayerJoinedNotification) {
 function onNextQuestion(nextQuestion: NextQuestionNotification) {
     sessionStorage.setItem("questionText", nextQuestion.nextQuestionText)
     sessionStorage.setItem("questionId", nextQuestion.nextQuestionId.toString())
-    window.location.href = "/question"
+    window.location.href = "question"
 }
 
 function onStartGameClicked() {

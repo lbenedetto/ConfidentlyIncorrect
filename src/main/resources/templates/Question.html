@@ -3,8 +3,8 @@
 <head>
     <title>Confidently Incorrect</title>
     <div th:replace="~{fragments/header :: header}"></div>
-    <script src="/static/js/runtime~Question.bundle.js"></script>
-    <script src="/static/js/Question.bundle.js"></script>
+    <script th:src="@{/static/js/runtime~Question.bundle.js}"></script>
+    <script th:src="@{/static/js/Question.bundle.js}"></script>
     <style>
         #TimeRemaining {
             height: 14px;

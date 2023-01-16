@@ -11,7 +11,7 @@ $(() => {
 })
 
 function onLeaveLobbyClicked() {
-    window.location.href = "/"
+    window.location.href = ""
 }
 
 function showLobbyDetails(lobbyDetails: LobbyDetails) {

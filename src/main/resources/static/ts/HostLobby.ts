@@ -20,7 +20,7 @@ function onHostLobbyClicked() {
         sessionStorage.setItem("lobbyId", lobbyId)
         sessionStorage.setItem("isHosting", "true")
         sessionStorage.setItem("isParticipating", request.isParticipating ? "true" : "false")
-        window.location.href = "/lobby"
+        window.location.href = "lobby"
     })
 }
 

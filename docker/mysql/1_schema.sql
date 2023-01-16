@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS `ci` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
-
+USE ci;
 CREATE TABLE IF NOT EXISTS TblLobby
 (
     id                VARCHAR(6) NOT NULL,

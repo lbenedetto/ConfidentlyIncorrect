@@ -24,11 +24,11 @@ $(() => {
 function onNextQuestion(nextQuestion: NextQuestionNotification) {
     sessionStorage.setItem("questionText", nextQuestion.nextQuestionText)
     sessionStorage.setItem("questionId", nextQuestion.nextQuestionId.toString())
-    window.location.href = "/question"
+    window.location.href = "question"
 }
 
 function onGameOver(gameOver: GameOverNotification) {
-    window.location.href = "/gameOver"
+    window.location.href = "gameOver"
 }
 
 function onNextQuestionClicked() {

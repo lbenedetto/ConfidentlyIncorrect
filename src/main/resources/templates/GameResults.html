@@ -3,8 +3,8 @@
 <head>
     <title>Confidently Incorrect</title>
     <div th:replace="~{fragments/header :: header}"></div>
-    <script src="/static/js/runtime~GameResults.bundle.js"></script>
-    <script src="/static/js/GameResults.bundle.js"></script>
+    <script th:src="@{/static/js/runtime~GameResults.bundle.js}"></script>
+    <script th:src="@{/static/js/GameResults.bundle.js}"></script>
     <style>
         #ScoreList p {
             font-family: Source Sans Pro, sans-serif;

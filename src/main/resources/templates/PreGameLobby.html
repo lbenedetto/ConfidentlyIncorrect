@@ -3,8 +3,8 @@
 <head>
     <title>Confidently Incorrect</title>
     <div th:replace="~{fragments/header :: header}"></div>
-    <script src="/static/js/runtime~PreGameLobby.bundle.js"></script>
-    <script src="/static/js/PreGameLobby.bundle.js"></script>
+    <script th:src="@{/static/js/runtime~PreGameLobby.bundle.js}"></script>
+    <script th:src="@{/static/js/PreGameLobby.bundle.js}"></script>
     <style>
         #PlayerList li p, #PlayerList li i {
             min-height: 3rem;
