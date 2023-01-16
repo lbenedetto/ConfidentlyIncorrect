@@ -12,23 +12,28 @@ import com.larsbenedetto.confidentlyincorrect.gateway.QuestionGateway
 import com.larsbenedetto.confidentlyincorrect.web.model.QuestionResults
 import com.larsbenedetto.confidentlyincorrect.web.model.ValidationException
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class GetQuestionsResults(
     val lobbyGateway: LobbyGateway,
     val estimateGateway: EstimateGateway,
     val playerGateway: PlayerGateway,
-    val questionGateway: QuestionGateway
+    val questionGateway: QuestionGateway,
 ) {
     fun execute(lobbyId: LobbyId, questionId: QuestionId): QuestionResults {
+        val lobby = lobbyGateway.getById(lobbyId)
+        if (lobby.questionId != questionId || lobby.questionExpiresAt == null) {
+            throw ValidationException("That question is not associated with this lobby")
+        }
+
         val estimates = estimateGateway.findByLobbyAndQuestion(lobbyId, questionId)
         val players = playerGateway.findParticipatingByLobbyId(lobbyId)
-        if (players.size != estimates.size) {
-            throw ValidationException("Cannot view results before all players have answered")
+        if (players.size != estimates.size && lobby.questionExpiresAt!!.isAfter(LocalDateTime.now())) {
+            throw ValidationException("Cannot view results before all players have had a chance to answer")
         }
         val scores = mapScores(estimates, players)
         val question = questionGateway.getById(questionId)
-        val lobby = lobbyGateway.getById(lobbyId)
         val gameOver = lobby.questionCount == lobby.questionLimit
         return QuestionResults(question, gameOver, scores)
     }
