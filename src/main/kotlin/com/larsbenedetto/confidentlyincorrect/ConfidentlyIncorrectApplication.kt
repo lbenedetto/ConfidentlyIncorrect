@@ -1,7 +1,10 @@
 package com.larsbenedetto.confidentlyincorrect
 
+import org.springframework.boot.ResourceBanner
+import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import org.springframework.context.ConfigurableApplicationContext
+import org.springframework.core.io.ClassPathResource
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker
 
 @SpringBootApplication
@@ -9,5 +12,12 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 class ConfidentlyIncorrectApplication
 
 fun main(args: Array<String>) {
-	runApplication<ConfidentlyIncorrectApplication>(*args)
+	val app = SpringApplication(ConfidentlyIncorrectApplication::class.java)
+	val context: ConfigurableApplicationContext = app.run(*args)
+
+	ResourceBanner(ClassPathResource("splash.txt")).printBanner(
+		context.environment,
+		ConfidentlyIncorrectApplication::class.java,
+		System.out
+	)
 }
