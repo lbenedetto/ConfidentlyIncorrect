@@ -9,8 +9,9 @@ import {
 let stompClient: Client;
 
 export function connect(onConnect: () => void) {
+    let hostname = window.location.hostname
     stompClient = new Client({
-        brokerURL: `ws://localhost:8080/ws`,
+        brokerURL: `ws://${hostname}:8080/ws`,
         onConnect: (receipt: IFrame) => { onConnect() }
     })
     stompClient.activate();
