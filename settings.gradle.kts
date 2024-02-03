@@ -3,8 +3,8 @@ rootProject.name = "confidentlyincorrect"
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
-            version("spring-boot", "3.0.1")
-            version("spring-framework", "6.0.4")
+            version("spring-boot", "3.2.2")
+            version("spring-framework", "6.1.3")
 
             library("spring-boot-starter-data-jpa", "org.springframework.boot", "spring-boot-starter-data-jpa").versionRef("spring-boot")
             library("spring-boot-starter-web", "org.springframework.boot", "spring-boot-starter-web").versionRef("spring-boot")
@@ -14,11 +14,11 @@ dependencyResolutionManagement {
             library("spring-webmvc", "org.springframework", "spring-webmvc").versionRef("spring-framework")
 
 
-            version("thymeleaf-layout-dialect", "3.1.0")
-            version("jackson-module-kotlin", "2.14.1")
-            version("kotlin-reflect", "1.8.0")
-            version("kotlin-stdlib-jdk8", "1.8.0")
-            version("mysql-connector-java", "8.0.31")
+            version("thymeleaf-layout-dialect", "3.3.0")
+            version("jackson-module-kotlin", "2.16.1")
+            version("kotlin-reflect", "1.9.22")
+            version("kotlin-stdlib-jdk8", "1.9.22")
+            version("mysql-connector-java", "8.0.33")
 
             library("thymeleaf-layout-dialect", "nz.net.ultraq.thymeleaf", "thymeleaf-layout-dialect").versionRef("thymeleaf-layout-dialect")
             library("jackson-module-kotlin", "com.fasterxml.jackson.module", "jackson-module-kotlin").versionRef("jackson-module-kotlin")
