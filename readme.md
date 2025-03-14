@@ -1,6 +1,6 @@
 # Development
 
-Start mysql server with `docker-compose up`
+Start mysql server with `docker compose up`
 
 In order to edit and compile the ts files, you must install some npm packages
 Install
