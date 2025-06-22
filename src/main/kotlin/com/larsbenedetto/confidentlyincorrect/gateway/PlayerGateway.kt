@@ -3,6 +3,7 @@ package com.larsbenedetto.confidentlyincorrect.gateway
 import com.larsbenedetto.confidentlyincorrect.domain.entity.Player
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
+import com.larsbenedetto.confidentlyincorrect.domain.TeamId
 import com.larsbenedetto.confidentlyincorrect.gateway.model.TblPlayer
 import com.larsbenedetto.confidentlyincorrect.util.mapNull
 import com.larsbenedetto.confidentlyincorrect.web.model.EntityLookupFailedException
@@ -38,8 +39,9 @@ class PlayerGateway(
             id = entity.id?.value,
             name = entity.name,
             score = entity.score,
-            lobbyId = entity.lobbyId?.value,
-            isParticipating = entity.isParticipating
+            lobbyId = entity.lobbyId.value,
+            isParticipating = entity.isParticipating,
+            teamId = entity.teamId.value
         )
     }
 
@@ -48,8 +50,9 @@ class PlayerGateway(
             id = PlayerId(tbl.id!!),
             name = tbl.name,
             score = tbl.score,
-            lobbyId = tbl.lobbyId.mapNull { LobbyId(it) },
-            isParticipating = tbl.isParticipating
+            lobbyId = LobbyId(tbl.lobbyId),
+            isParticipating = tbl.isParticipating,
+            teamId = TeamId(tbl.teamId)
         )
     }
 }

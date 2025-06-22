@@ -3,11 +3,13 @@ package com.larsbenedetto.confidentlyincorrect.domain.entity
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
 import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
+import com.larsbenedetto.confidentlyincorrect.domain.TeamId
 import java.time.LocalDateTime
 
 data class Lobby(
     var id: LobbyId,
     var ownerId: PlayerId,
+    var defaultTeamId: TeamId,
     var questionId: QuestionId? = null,
     var capacity: Int?,
     var questionCount: Int = 0,

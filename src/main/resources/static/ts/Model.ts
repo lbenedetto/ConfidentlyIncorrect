@@ -47,11 +47,13 @@ export class QuestionResults {
     question: Question;
     gameOver: boolean;
     scores: Array<Score>;
+    lobbyScore: Score;
 
     constructor(data: any) {
         this.question = new Question(data.question)
         this.gameOver = data.gameOver;
         this.scores = data.scores.map((scoreData: any) => new Score(scoreData))
+        this.lobbyScore = new Score(data.lobbyScore)
     }
 }
 
@@ -137,13 +139,13 @@ export class Question {
 export class Score {
     value: number;
     cumulativeScore: number;
-    playerName: string;
+    scorerName: string;
     lowerBound: number;
     upperBound: number;
     constructor(data: any) {
         this.value = data.value
         this.cumulativeScore = data.cumulativeScore
-        this.playerName = data.playerName
+        this.scorerName = data.scorerName
         this.lowerBound = data.lowerBound
         this.upperBound = data.upperBound
     }

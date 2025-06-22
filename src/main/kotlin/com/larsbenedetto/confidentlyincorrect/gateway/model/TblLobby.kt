@@ -14,6 +14,8 @@ data class TblLobby(
 
     var ownerId: Long,
 
+    val defaultTeamId: Long,
+
     var questionId: Long?,
 
     var capacity: Int?,

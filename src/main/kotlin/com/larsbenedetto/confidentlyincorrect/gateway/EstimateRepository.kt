@@ -22,6 +22,38 @@ interface EstimateRepository : CrudRepository<TblEstimate, Long> {
         @Param("questionId") questionId: Long
     ): List<TblEstimate>
 
+    @Query("""SELECT e FROM TblEstimate e
+        WHERE e.lobbyId = :lobbyId
+        AND e.questionId = :questionId
+        AND e.playerId IS NOT NULL
+        ORDER BY e.score DESC
+    """)
+    fun findAllPlayerEstimatesByLobbyIdAndQuestionId(
+        @Param("lobbyId") lobbyId: String,
+        @Param("questionId") questionId: Long
+    ): List<TblEstimate>
+
+    @Query("""SELECT e FROM TblEstimate e
+        WHERE e.lobbyId = :lobbyId
+        AND e.questionId = :questionId
+        AND e.playerId IS NULL
+        ORDER BY e.score DESC
+    """)
+    fun findTeamEstimatesByLobbyAndQuestion(
+        @Param("lobbyId") lobbyId: String,
+        @Param("questionId") questionId: Long
+    ): List<TblEstimate>
+
+    @Query("""SELECT e FROM TblEstimate e
+        WHERE e.teamId = :teamId
+        AND e.questionId = :questionId
+        AND e.playerId IS NULL
+    """)
+    fun findTeamEstimateByQuestion(
+        @Param("teamId") teamId: Long,
+        @Param("questionId") questionId: Long
+    ): Optional<TblEstimate>
+
     @Query("""SELECT DISTINCT(e.questionId) FROM TblEstimate e
         WHERE e.lobbyId = :lobbyId
     """)

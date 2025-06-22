@@ -4,6 +4,7 @@ import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.events.PlayerJoinedEvent
 import com.larsbenedetto.confidentlyincorrect.gateway.LobbyGateway
 import com.larsbenedetto.confidentlyincorrect.gateway.PlayerGateway
+import com.larsbenedetto.confidentlyincorrect.gateway.TeamGateway
 import com.larsbenedetto.confidentlyincorrect.usecase.service.EventDispatcher
 import com.larsbenedetto.confidentlyincorrect.web.lobby.model.JoinLobbyRequest
 import com.larsbenedetto.confidentlyincorrect.web.lobby.model.JoinLobbyResponse
@@ -24,9 +25,12 @@ class JoinLobby(
             throw ValidationException("Cannot join a full lobby")
         }
 
-        val created = createPlayer.execute(request.playerName, request.isParticipating)
-        created.player.lobbyId = lobbyId
-        playerGateway.save(created.player)
+        val created = createPlayer.execute(
+            lobbyId = lobbyId,
+            teamId = lobby.defaultTeamId,
+            name = request.playerName,
+            isParticipating = request.isParticipating
+        )
 
         eventDispatcher.notify(
             lobbyId = lobbyId,

@@ -3,6 +3,7 @@ package com.larsbenedetto.confidentlyincorrect.gateway
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
 import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
 import com.larsbenedetto.confidentlyincorrect.domain.QuestionId
+import com.larsbenedetto.confidentlyincorrect.domain.TeamId
 import com.larsbenedetto.confidentlyincorrect.domain.entity.Lobby
 import com.larsbenedetto.confidentlyincorrect.gateway.model.TblLobby
 import com.larsbenedetto.confidentlyincorrect.util.mapNull
@@ -36,6 +37,7 @@ class LobbyGateway(
         return TblLobby(
             id = entity.id.value,
             ownerId = entity.ownerId.value,
+            defaultTeamId = entity.defaultTeamId.value,
             questionId = entity.questionId?.value,
             capacity = entity.capacity,
             questionCount = entity.questionCount,
@@ -48,6 +50,7 @@ class LobbyGateway(
         return Lobby(
             id = LobbyId(tbl.id),
             ownerId = PlayerId(tbl.ownerId),
+            defaultTeamId = TeamId(tbl.defaultTeamId),
             questionId = tbl.questionId.mapNull { QuestionId(it) },
             capacity = tbl.capacity,
             questionCount = tbl.questionCount,

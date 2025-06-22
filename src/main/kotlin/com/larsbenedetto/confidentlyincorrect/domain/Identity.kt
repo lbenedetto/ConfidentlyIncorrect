@@ -29,6 +29,11 @@ data class PlayerId(@field:Basic override val value: Long) : LongIdentity {
 }
 
 @Embeddable
+data class TeamId(@field:Basic override val value: Long) : LongIdentity {
+    constructor(value: String) : this(value.toLong())
+}
+
+@Embeddable
 data class QuestionId(override var value: Long): LongIdentity {
     constructor(value: String) : this(value.toLong())
 }

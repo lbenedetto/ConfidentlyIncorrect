@@ -41,6 +41,9 @@ function showQuestionResults(questionResults: QuestionResults) {
         $("#BtnNextQuestion").text("Show Final Results")
     }
 
+    const lobbyScore = questionResults.lobbyScore;
+    $("#LobbyScoreDisplay").html(`<p>Across all players, your estimates scored <strong>${lobbyScore.value.toFixed(2)}</strong>, accumulating <strong>${lobbyScore.cumulativeScore.toFixed(2)}</strong> points so far</p>`);
+
     let playerList = $("#ScoreList")
     questionResults.scores.forEach(score => {
         playerList.append(getScoreHtml(score))
@@ -53,7 +56,7 @@ function getScoreHtml(score: Score) {
     return `
 <tr>
     <td><i class="material-icons" style="color:${color}">${icon}</i></td>
-    <td><p>${score.playerName}</p></td>
+    <td><p>${score.scorerName}</p></td>
     <td><p>${score.value.toFixed(2)}</p></td>
     <td><p>${score.cumulativeScore.toFixed(2)}</p></td>
     <td><p>${score.lowerBound}</p></td>
@@ -61,4 +64,3 @@ function getScoreHtml(score: Score) {
 </tr>
 `;
 }
-

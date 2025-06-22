@@ -15,7 +15,9 @@ data class TblEstimate(
 
     var lobbyId: String,
 
-    var playerId: Long,
+    var playerId: Long?,
+
+    var teamId: Long,
 
     var questionId: Long,
 

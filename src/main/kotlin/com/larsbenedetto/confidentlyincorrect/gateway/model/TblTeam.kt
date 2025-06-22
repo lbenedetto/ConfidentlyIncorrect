@@ -5,7 +5,7 @@ import jakarta.persistence.*
 
 @Entity
 @DynamicUpdate
-data class TblPlayer(
+data class TblTeam(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long?,
@@ -14,9 +14,5 @@ data class TblPlayer(
 
     var score: Double,
 
-    var isParticipating: Boolean,
-
     var lobbyId: String,
-
-    var teamId: Long,
 )

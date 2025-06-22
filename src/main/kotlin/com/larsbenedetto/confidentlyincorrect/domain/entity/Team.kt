@@ -1,14 +1,11 @@
 package com.larsbenedetto.confidentlyincorrect.domain.entity
 
 import com.larsbenedetto.confidentlyincorrect.domain.LobbyId
-import com.larsbenedetto.confidentlyincorrect.domain.PlayerId
 import com.larsbenedetto.confidentlyincorrect.domain.TeamId
 
-data class Player(
-    val id: PlayerId? = null,
+data class Team(
+    val id: TeamId? = null,
     val name: String,
     var score: Double = 0.0,
-    var isParticipating: Boolean = true,
     val lobbyId: LobbyId,
-    var teamId: TeamId,
 )
