@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Confidently Incorrect</title>
     <div th:replace="~{fragments/header :: header}"></div>
@@ -7,34 +7,50 @@
     <script th:src="@{/static/js/QuestionResults.bundle.js}"></script>
 </head>
 <body>
-<div class="container-fluid w-75 p-3">
-    <h1 class="text-center"><a style="color:#ffffff">ROUND</a> <a style="color:#e6640c">COMPLETED</a>
-    </h1>
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <br/>
-            <br/>
-            <div class="text-center">
-                <h2 id="AnswerField"></h2>
-                <div id="LobbyScoreDisplay" class="text-center" style="margin-top: 1em;"></div>
+        <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 fade-in">
+            <h1 class="text-center mb-4">
+                <span style="color:var(--text-color)">ROUND</span>
+                <span style="color:var(--secondary-color)">COMPLETED</span>
+            </h1>
+
+            <div class="card mb-4">
+                <div class="text-center mb-4">
+                    <h2 id="AnswerField" class="mb-3"></h2>
+                    <div id="LobbyScoreDisplay" class="mb-2"></div>
+                </div>
+
+                <div id="RangeVisualization" class="mb-4">
+                    <h3 class="text-center mb-3">Player Ranges</h3>
+                    <div id="RangeChart" class="range-chart"></div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="ScoreList" class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 2em"></th>
+                                <th>Player Name</th>
+                                <th>Score</th>
+                                <th>Cumulative Score</th>
+                                <th>Lower Bound</th>
+                                <th>Upper Bound</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be added dynamically by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="center-stuff">
+                <button id="BtnNextQuestion" type="button" class="btn btn-lg btn-success">
+                    <i class="material-icons">navigate_next</i> Next Question
+                </button>
             </div>
         </div>
-        <table id="ScoreList" style="margin-top: 2em;">
-            <tr>
-                <th style="width: 2em"></th>
-                <th><p>Player Name</p></th>
-                <th><p>Score</p></th>
-                <th><p>Cumulative Score</p></th>
-                <th><p>Lower Bound</p></th>
-                <th><p>Upper Bound</p></th>
-            </tr>
-        </table>
-        <br/>
-        <form>
-            <div class="center-stuff" style="padding-top: 2em">
-                <button id="BtnNextQuestion" type="button" class="btn btn-lg btn-success">Next Question</button>
-            </div>
-        </form>
     </div>
 </div>
 </body>

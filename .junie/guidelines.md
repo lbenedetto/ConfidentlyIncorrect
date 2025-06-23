@@ -26,9 +26,8 @@ The name "Confidently Incorrect" refers to the cognitive bias where people tend 
 
 ## Development Guidelines
 - There are no tests to run to verify functionality, so do not bother looking for them or attempting to test your code. 
-- This project is currently in YOLO mode, which means we'll worry about correctness later. 
-- As long as the project compiles, we can assume it is correct enough.
-- Build the project before submitting to ensure TypeScript compilation works correctly
+- This project is currently in YOLO mode, which means we'll worry about correctness later.
+- Do NOT attempt to build, run, or even compile the code.
 - Follow existing code style with proper Kotlin conventions
 - When modifying the frontend, make sure to run the TypeScript build process
 

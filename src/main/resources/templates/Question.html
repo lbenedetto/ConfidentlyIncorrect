@@ -1,82 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Confidently Incorrect</title>
     <div th:replace="~{fragments/header :: header}"></div>
     <script th:src="@{/static/js/runtime~Question.bundle.js}"></script>
     <script th:src="@{/static/js/Question.bundle.js}"></script>
-    <style>
-        #TimeRemaining {
-            height: 14px;
-            border-radius: 7px;
-            font-size: 96px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-
-            animation: colorchange 60s linear 1s; /* animation-name followed by duration in seconds*/
-            /* you could also use milliseconds (ms) or something like 2.5s */
-            -webkit-animation: colorchange 60s linear 0s alternate; /* Chrome and Safari */
-        }
-        @keyframes colorchange
-        {
-            0%   {background-color: dodgerblue; width: 10em;}
-            50%  {background-color: yellow; width: 5em;}
-            100% {background-color: orangered; width: 0em;}
-        }
-
-        @-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
-        {
-            0%   {background-color: dodgerblue;width: 10em;}
-            50%  {background-color: yellow;width: 5em;}
-            100% {background-color: orangered;width: 0em;}
-        }
-    </style>
 </head>
 <body>
-<div class="container-fluid w-75 p-3">
-    <h1 id="TitleText" class="text-center"><a style="color:#ffffff">PROVIDE</a> <a
-            style="color:#e6640c">ESTIMATE</a>
-    </h1>
-    <div class="col-md-8 offset-md-2">
-        <div class="center-stuff">
-            <div id="TimeRemaining"></div>
-        </div>
-        <div class="text-center">
-            <h2 id="QuestionField">How much wood could a wood chuck chuck if a wood chuck could chuck wood?</h2>
-        </div>
-    </div>
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-3 order-md-1 offset-md-4">
-            <ul class="list-inline mx-auto justify-content-center">
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-control w-25" id="LowerBoundField"
-                               aria-describedby="LowerBoundField" placeholder="100m">
+        <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 fade-in">
+            <h1 id="TitleText" class="text-center mb-4">
+                <span style="color:var(--text-color)">PROVIDE</span>
+                <span style="color:var(--secondary-color)">ESTIMATE</span>
+            </h1>
+
+            <div class="card mb-4">
+                <div class="text-center mb-3">
+                    <h2 id="QuestionField" class="mb-3">How much wood could a wood chuck chuck if a wood chuck could chuck wood?</h2>
+                    <div class="center-stuff">
+                        <div id="TimeRemaining"></div>
                     </div>
-                </form>
-            </ul>
-        </div>
-        <div class="col-md-3 order-md-2">
-            <form>
-                <div class="form-group">
-                    <input type="text" class="form-control w-25" id="UpperBoundField"
-                           aria-describedby="UpperBoundField" placeholder="1b">
                 </div>
-            </form>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label for="LowerBoundField" class="form-label">Lower Bound</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="material-icons">arrow_downward</i></span>
+                            <input type="text" class="form-control" id="LowerBoundField"
+                                   aria-describedby="LowerBoundHelp" placeholder="1k">
+                        </div>
+                        <div id="LowerBoundHelp" class="form-text text-white-50">Your lowest possible estimate</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="UpperBoundField" class="form-label">Upper Bound</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="material-icons">arrow_upward</i></span>
+                            <input type="text" class="form-control" id="UpperBoundField"
+                                   aria-describedby="UpperBoundHelp" placeholder="5m">
+                        </div>
+                        <div id="UpperBoundHelp" class="form-text text-white-50">Your highest possible estimate</div>
+                    </div>
+                </div>
+
+                <div class="center-stuff">
+                    <button id="BtnSubmitEstimate" type="button" class="btn btn-lg btn-primary">
+                        <i class="material-icons">send</i> Submit Estimate
+                    </button>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <h1 id="ScoreField" class="display-1"></h1>
+            </div>
         </div>
     </div>
-    <br/>
-    <form>
-        <div class="center-stuff">
-            <button id="BtnSubmitEstimate" type="button" class="btn btn-lg btn-primary">Submit Estimate</button>
-        </div>
-    </form>
-    <div class="col-md-8 offset-md-2" style="padding-top: 2em">
-        <div class="text-center">
-            <h1 id="ScoreField"></h1>
-        </div>
-    </div>
-</div>
 </div>
 </body>
 </html>

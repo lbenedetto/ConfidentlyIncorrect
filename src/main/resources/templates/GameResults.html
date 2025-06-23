@@ -1,40 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Confidently Incorrect</title>
     <div th:replace="~{fragments/header :: header}"></div>
     <script th:src="@{/static/js/runtime~GameResults.bundle.js}"></script>
     <script th:src="@{/static/js/GameResults.bundle.js}"></script>
     <style>
-        #ScoreList p {
-            font-family: Source Sans Pro, sans-serif;
+        .final-score {
+            font-family: 'Poppins', sans-serif;
             font-weight: 900;
-            font-size: 40px !important;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .winner {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .winner::before {
+            content: "🏆";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            font-size: 1.5rem;
+        }
+
+        .confetti {
+            animation: confetti-fall 5s linear infinite;
+            position: absolute;
+            opacity: 0.8;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
-<div class="container-fluid w-75 p-3">
-    <h1 class="text-center"><a style="color:#ffffff">GAME</a> <a style="color:#e6640c">OVER</a>
-    </h1>
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <br/>
-            <br/>
-            <div class="text-center">
-                <h2>The game has concluded</h2>
-            </div>
-            <div id="ScoreList" class="center-stuff" style="margin-top: 2em;">
+        <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 fade-in">
+            <h1 class="text-center mb-4">
+                <span style="color:var(--text-color)">GAME</span>
+                <span style="color:var(--secondary-color)">OVER</span>
+            </h1>
 
-            </div>
-            <br/>
-            <form>
-                <div class="center-stuff" style="padding-top: 2em">
-                    <button id="BtnLeaveLobby" type="button" class="btn btn-lg btn-primary">Leave Lobby</button>
+            <div class="card mb-4">
+                <div class="text-center mb-4">
+                    <h2 class="mb-3">Final Results</h2>
+                    <p>Congratulations to all players! Here are the final scores:</p>
                 </div>
-            </form>
+
+                <div id="ScoreList" class="center-stuff flex-column">
+                    <!-- Scores will be added dynamically by JavaScript -->
+                </div>
+            </div>
+
+            <div class="center-stuff">
+                <button id="BtnLeaveLobby" type="button" class="btn btn-lg btn-primary">
+                    <i class="material-icons">exit_to_app</i> Leave Lobby
+                </button>
+                <button type="button" class="btn btn-lg btn-success" onclick="window.location.href = '/'">
+                    <i class="material-icons">replay</i> Play Again
+                </button>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    // Add confetti effect for game over celebration
+    function createConfetti() {
+        const colors = ['#ffd166', '#06d6a0', '#ef476f', '#118ab2', '#073b4c'];
+        const confettiCount = 100;
+
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDelay = Math.random() * 5 + 's';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.width = Math.random() * 10 + 5 + 'px';
+            confetti.style.height = Math.random() * 10 + 5 + 'px';
+            document.body.appendChild(confetti);
+        }
+    }
+
+    // Call the function when the page loads
+    window.addEventListener('load', createConfetti);
+</script>
 </body>
 </html>

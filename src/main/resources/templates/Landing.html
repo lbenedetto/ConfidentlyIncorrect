@@ -1,28 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Confidently Incorrect</title>
     <div th:replace="~{fragments/header :: header}"></div>
 </head>
 <body>
-<div class="container-fluid w-75 p-3">
-    <h1 class="text-center"><a style="color:#ffffff">CONFIDENTLY</a> <a style="color:#e6640c">INCORRECT</a>
-    </h1>
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <p>In this multiplayer quiz, instead of giving an answer, you estimate the range that
-                you think the correct answer falls within. You get a score depending on how wide or
-                narrow your range was and how far off you were.</p>
-            <p>You can lose a lot more points for being wrong than you can gain from being right, so
-                be careful.</p>
-            <br/>
-            <form>
-                <div class="center-stuff">
-                    <button type="button" class="btn btn-lg btn-success" onclick="window.location.href = 'host'">Host Game</button>
-                    <span style="width: 3em"></span>
-                    <button type="button" class="btn btn-lg btn-primary" onclick="window.location.href = 'join'">Join Game</button>
-                </div>
-            </form>
+        <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center fade-in">
+            <h1 class="mb-4">
+                <span style="color:var(--text-color)">CONFIDENTLY</span>
+                <span style="color:var(--secondary-color)">INCORRECT</span>
+            </h1>
+
+            <div class="card mb-5">
+                <p>In this multiplayer quiz, instead of giving an answer, you estimate the range that
+                    you think the correct answer falls within. You get a score depending on how wide or
+                    narrow your range was and how far off you were.</p>
+                <p class="mb-0">You can lose a lot more points for being wrong than you can gain from being right, so
+                    be careful.</p>
+            </div>
+
+            <div class="center-stuff">
+                <button type="button" class="btn btn-lg btn-success" onclick="window.location.href = 'host'">
+                    <i class="material-icons">group_add</i> Host Game
+                </button>
+                <button type="button" class="btn btn-lg btn-primary" onclick="window.location.href = 'join'">
+                    <i class="material-icons">login</i> Join Game
+                </button>
+            </div>
         </div>
     </div>
 </div>
