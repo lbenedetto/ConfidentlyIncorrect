@@ -30,10 +30,11 @@
             animation: confetti-fall 5s linear infinite;
             position: absolute;
             opacity: 0.8;
+            top: 0;
         }
 
         @keyframes confetti-fall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            0% { transform: translateY(-300px) rotate(0deg); opacity: 1; }
             100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
     </style>
@@ -80,6 +81,7 @@
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
             confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = Math.random() * -300 + 'px'; // Randomize initial vertical position
             confetti.style.animationDelay = Math.random() * 5 + 's';
             confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
             confetti.style.width = Math.random() * 10 + 5 + 'px';

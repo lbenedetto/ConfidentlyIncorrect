@@ -15,7 +15,7 @@ allOpen {
 
 group = "com.larsbenedetto"
 version = "1.2"
-java.sourceCompatibility = JavaVersion.VERSION_21
+java.sourceCompatibility = JavaVersion.VERSION_25
 
 repositories {
     mavenCentral()
@@ -43,7 +43,7 @@ dependencies {
 kotlin {
     compilerOptions {
         freeCompilerArgs.addAll("-Xjsr305=strict")
-        jvmToolchain(21)
+        jvmToolchain(25)
     }
 }
 
